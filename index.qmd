@@ -1,0 +1,30 @@
+---
+title: "Materiales del curso"
+toc: false
+---
+
+Página oficial con todos los recursos (materiales prácticos y presentaciones) para todos los temas. El material será actualizado al finalizar el curso para resolver errores o dudas.
+
+
+::: columns
+::: {.column width="40%"}
+![](presentaciones/imgs/fcenudea.jpg){width="90%"}
+:::
+
+::: {.column width="60%"}
+
+### Coordina
+Dra. Juliana Herrera Pérez
+
+## Imparte
+
+Dr. Luis D. Verde Arregoitia  
+
+
+<span class='code'>📆 &ensp; 17-20 de noviembre, 2026</span>\
+<span class='code'>⏰ &ensp;09:00 - 17:00</span>\
+<span class='code'>🏨 &ensp;Salón 7-103, Facultad de Ciencias Exactas y Naturales, Universidad de Antioquia, Medellín</span>\
+
+:::
+:::
+

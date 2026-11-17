@@ -1,0 +1,1109 @@
+---
+title: "Visualización de datos"
+author: Luis D. Verde Arregoitia
+format:
+  revealjs:
+    theme: curso_styles.scss
+    chalkboard: true
+    transition: fade
+    progress: true
+    multiplex: false
+    preview-links: true
+    hide-inactive-cursor: true
+    highlight-style: pygments
+    pause: true
+editor: source
+knitr:
+  opts_chunk:
+    dev: "ragg_png"
+    retina: 3
+    dpi: 200
+execute:
+  freeze: auto
+  cache: true
+  echo: true
+---
+
+## Temas de este bloque:
+
+* Introducción a `ggplot2`   
+* Representaciones gráficas de información  
+* Personalización de elementos gráficos (ejes, colores, fuentes, leyendas)  
+* Exportando gráficos de alta resolución
+* Preparación de figuras científicas  
+* Figuras complejas  
+
+
+```{r setup}
+#| echo: false
+library(ggplot2)
+library(dplyr)
+library(here)
+library(gt)
+library(ggthemes)
+library(ggtext)
+library(patchwork)
+```
+
+
+## Paquetes para hoy
+
+Por si no los tienen:
+
+:::{.big-code}
+```{r}
+#| eval: false
+#| echo: true
+
+install.packages("ggplot2")
+install.packages("ggthemes") 
+install.packages("ragg")
+install.packages("patchwork")
+install.packages("forcats")
+```
+:::
+
+# `ggplot2`
+
+## 
+
+:::{style="text-align:center"}
+[The Grammar of Graphics](https://link.springer.com/book/10.1007/0-387-28695-0)  
+Wilkinson (1999, 2005)  
+
+[A Layered Grammar of Graphics](ttps://doi.org/10.1198/jcgs.2009.07098)  
+Hadley Wickham (2007)
+:::
+
+::: {layout-nrow=1}
+![](imgs/ggwilk.jpg)
+![](imgs/layered.png){width="20%"}
+![](imgs/hadley.png){width="20%"}
+![](imgs/ggplot2.png){width="20%"}
+
+:::
+
+
+
+##
+
+> Una gramática puede ayudar a construir oraciones diferentes con una pequeña cantidad de verbos, sustantivos y adjetivos, en lugar de memorizar cada oración específica. Una pequeña cantidad de los componentes básicos de ggplot2 y de su gramática puede crear cientos de gráficos diferentes.
+
+[Introducción a la ciencia de datos](http://rafalab.dfci.harvard.edu/dslibro/)  
+Rafael A. Irizarry (2020)
+
+# Galería
+
+Compilada por Cédric Scherer
+
+:::{style="text-align:center"}  
+[curso de diseño gráfico con ggplot2 - 2022](https://rstudio-conf-2022.github.io/ggplot2-graphic-design/)
+:::
+
+
+
+------------------------------------------------------------------------
+
+![[BBC R Cookbook](https://bbc.github.io/rcookbook/)](imgs/showcase/bbc-gallery.png){fig-align="center"}
+
+------------------------------------------------------------------------
+
+![[#TidyTuesday semana 2020/31](https://github.com/Z3tt/TidyTuesday/tree/main/plots/2020_31)](imgs/showcase/2020_31_PalmerPenguins.png){fig-align="center" fig-size="80%"}
+
+------------------------------------------------------------------------
+
+![[The Economist](https://www.economist.com/graphic-detail/2019/09/28/why-are-some-languages-spoken-faster-than-others)](imgs/showcase/speech_speed_language_families_raincloud.png){fig-align="center"}
+
+------------------------------------------------------------------------
+
+![[#TidyTuesday semana 2020/08](https://github.com/Z3tt/TidyTuesday/tree/main/plots/2020_08)](imgs/showcase/20200307_TT_2020_08_CarbonFoodprint_alt.png){fig-align="center"}
+
+------------------------------------------------------------------------
+
+![[Storytelling With Data"](https://www.storytellingwithdata.com/blog/2020/1/6/swdchallenge-small-multiples)](imgs/showcase/SWD_2020_01_SmallMultiples_grey.png){fig-align="center"}
+
+------------------------------------------------------------------------
+
+![[#TidyTuesday semana 2021/15 por Jake Kaupp](https://twitter.com/jakekaupp/status/1379606812849270784?s=20)](imgs/showcase/jake_30dcc_tt_trees.png){fig-align="center"}
+
+------------------------------------------------------------------------
+
+![[#TidyTuesday por Jack Davison](github.com/jack-davison/tidytuesday)](imgs/showcase/jack_davison.png){fig-align="center"}
+
+------------------------------------------------------------------------
+
+![[Concurso BES MoveMap](https://besmovesig.wordpress.com/2021/02/25/mapping-movements-the-art-and-the-science-we-have-the-winners/)](imgs/showcase/20210131_BES_CheetahMap_rcarto.png){fig-align="center"}
+
+------------------------------------------------------------------------
+
+![[Choropeta y Relieve](timogrossenbacher.ch/2019/04/bivariate-maps-with-ggplot2-and-sf) por Timo Gossenbacher](imgs/showcase/swiss_map.png){fig-align="center"}
+
+------------------------------------------------------------------------
+
+
+![[arte de Thomas Lin Pedersen](https://www.data-imaginist.com/art)](imgs/showcase/genart.png){fig-align="center"}
+
+## Recursos por Nicola Rennie
+
+- [Galería de ejemplos](https://nrennie.rbind.io/viz-gallery/)
+
+- [The Art of Data Visualization with ggplot2](https://nrennie.rbind.io/art-of-viz/)
+
+## Gramática de gráficos
+
+![Modificado de Wickham (2007)](imgs/gramaticagrs.png){fig-align="center"}
+
+
+
+##
+
+![](imgs/capas.png)
+
+## 
+
+
+::: {.big-code}
+```{r}
+#| eval: false
+#| echo: true
+ggplot(data, aes(x,y)) +
+  geom_point()
+```
+:::
+
+</br>
+</br>
+`ggplot()` crea el gráfico  
+
+`aes()` determina los vínculos entre las variables y las propiedades del gráfico
+
+`geom_*` define la capa con la representación visual de los datos
+
+------------------------
+
+::: panel-tabset
+
+### lagartijas
+
+```{r}
+#| eval: true
+#| echo: false
+tibble::tribble(
+  ~largo, ~peso,     ~edad,
+      9L,   20L,  "adulto",
+      8L,   13L, "juvenil",
+      7L,   15L, "juvenil",
+     13L,   18L,  "adulto",
+     11L,   21L,  "adulto",
+      6L,   14L, "juvenil"
+  ) |> gt() |> 
+    tab_style(
+    cell_text(size = '33px'),
+    locations = list(cells_body(),
+                     cells_column_labels(everything()),
+                     cells_title())) |> 
+  tab_options(table.background.color="#f4f4f9")
+```
+
+### Datos
+
+```{r}
+#| eval: false
+#| echo: true
+
+lagartijas <- 
+tibble::tribble(
+  ~largo, ~peso,     ~edad,
+      9L,   20L,  "adulto",
+      8L,   13L, "juvenil",
+      7L,   15L, "juvenil",
+     13L,   18L,  "adulto",
+     11L,   21L,  "adulto",
+      6L,   14L, "juvenil"
+  )
+
+```
+:::
+
+----------------
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: false
+ 
+tibble::tribble(
+  ~largo, ~peso,     ~edad,
+      9L,   20L,  "adulto",
+      8L,   13L, "juvenil",
+      7L,   15L, "juvenil",
+     13L,   18L,  "adulto",
+     11L,   21L,  "adulto",
+      6L,   14L, "juvenil"
+  ) |> gt() |> tab_style(
+    cell_text(size = '34px'),
+    locations = list(cells_body(),
+                     cells_column_labels(everything()),
+                     cells_title())) |> 
+  tab_options(table.background.color="#f4f4f9")
+
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| echo: false
+ 
+tibble::tribble(
+   ~x,  ~y,     ~figura,
+   9L, 20L,   "círculo",
+   8L, 13L, "triángulo",
+   7L, 15L, "triángulo",
+  13L, 18L,   "círculo",
+  11L, 21L,   "círculo",
+   6L, 14L, "triángulo"
+  ) |> gt() |> tab_style(
+    cell_text(size = '34px'),
+    locations = list(cells_body(),
+                     cells_column_labels(everything()),
+                     cells_title())) |> 
+  tab_options(table.background.color="#f4f4f9")
+
+```
+:::
+:::
+
+##
+
+```{r}
+#| echo: false
+#| eval: true
+
+lagartijas <- tibble::tribble(
+  ~largo, ~peso,     ~edad,
+      9L,   20L,  "adulto",
+      8L,   13L, "juvenil",
+      7L,   15L, "juvenil",
+     13L,   18L,  "adulto",
+     11L,   21L,  "adulto",
+      6L,   14L, "juvenil"
+  )
+```
+
+
+```{r}
+ggplot(data = lagartijas,     
+  aes(x = largo,y = peso))+
+  geom_point()
+```
+
+## Ejercicio {background-image="imgs/aquatic.jpg"}
+
+:::{style="background-color:#026937; color:white; font-size: 1.5em;"}
+`ranas.csv`{style="color:orange"}  
+`01_armar-plots.R`{style="color:orange"}  
+:::
+</br></br></br>
+
+:::{.callout-note}
+##
+Datos sobre tamaño corporal, frecuencia dominante, y hábitat de 176 especies de ranas, tomados de Muñoz et al. [(2020)](https://onlinelibrary.wiley.com/doi/10.1111/jeb.13713)
+:::
+
+# Personalización de figuras
+
+## Modificando elementos gráficos
+
+::: columns
+::: {.column width="30%"}
+`labs`  
+`fill`  
+`color`  
+`size`  
+`themes`  
+`scale_fill_*`  
+`scale_shape_*`  
+`scale_color_*`  
+
+
+:::
+
+::: {.column width="70%"}
+rótulos para ejes, títulos, subtítulos, etc.
+colores de rellenos     
+colores de bordes    
+tamaño o grueso de elementos  
+apariencias predefinidas 
+  
+  
+control manual sobre mapeos estéticos (colores, rellenos, formas)
+:::
+:::
+
+##
+
+`ggplot2` cuenta con valores predeterminados para asignar formas y colores diferentes a diferentes niveles de variables categóricas
+
+
+::: {layout-nrow=1}
+![](imgs/defshapes.png)
+![](imgs/defcols.jpg){width="40%"}
+:::
+
+##
+
+Podemos especificar manualmente las formas y colores para las **categorías** con un vector que se le da al argumento `values`  
+
+Para dos categorías con dos niveles c/u:
+
+:::{.med-code}
+```{r}
+#| eval: false
+#| echo: true
+
+aes(x,y, color = var1, shape = var2)+
+ scale_color_manual(values=
+                      c('lightskyblue4','blue'))+
+ scale_shape_manual(values=c
+                    (20,21))
+
+```
+:::
+
+## Colores
+
+nombres HTML
+
+::: {layout-nrow=1}
+![](https://kktg.net/sgr/wp-content/uploads/colors2.png){width="44%"}
+![](https://kktg.net/sgr/wp-content/uploads/colors4.png){width="44%"}
+:::
+
+## Colores
+
+Códigos hexagesimales
+
+![](imgs/hexpals.png){fig-align="center"}
+
+Free Color Picker (Windows); Gpick (Linux); ColorSlurp (Mac)
+
+
+## Paletas de color
+
+::: columns
+::: {.column width="50%"}
+- Especificar por nombre  
+- Definir con un vector  
+:::
+
+::: {.column width="50%"}
+![](imgs/ejemplocool.png){fig-align="center"}
+:::
+:::
+
+🔗 Galería de ejemplos de [`paletteer`](https://pmassicotte.github.io/paletteer_gallery/)  
+
+🔗 [Pokepalettes](https://pokepalettes.com/)
+
+## Más paletas
+
+### Aves
+
+- [Manu](https://g-thomson.github.io/Manu/)
+- [birdcolors](https://github.com/bentonelli/birdcolors)
+
+### Peces
+- [fishualize](https://nschiett.github.io/fishualize/index.html)
+
+
+##
+
+El argumento `name` modifica el título de la leyenda que se genera automáticamente para los _mapeos_  
+
+:::{.med-code}
+```{r}
+#| eval: false
+#| echo: true
+
+aes(x,y, color = var1, shape = var2)+
+	scale_shape_manual(values=c(20,21),
+	                   name = 'Variable Dos')+
+	scale_color_manual(values=c('red','blue'), 
+	                   name= 'Variable Uno')
+
+```
+
+:::
+
+## Variables *cuantitativas* + color:  
+
+- Rampa de colores asignada automáticamente
+- Definir rampa con `scale_x_gradient` o asignar rampa predeterminada
+
+```{r}
+#| eval: true
+#| echo: false
+ranas <- read.csv(here("archivos-ej","ranas.csv"))
+```
+
+```{r}
+#| echo: true
+#| output-location: column-fragment
+
+ggplot(ranas,
+       aes(x=svl, y=freq_dom,
+           fill=svl))+
+  geom_point(size=4,color="white",
+             pch=21)+
+  labs(x="Tamaño Corporal (SVL)",
+       y="Frequencia Dominante (Hz)",
+       title="Llamados Ranas")
+```
+
+## Ejercicio {background-image="imgs/aquatic.jpg"}
+
+Modificando parámetros gráficos
+
+:::{style="background-color:#026937; color:white; font-size: 1.5em;"}
+`ranas.csv`{style="color:orange"}  
+`02_personalizar-figuras.R`{style="color:orange"}  
+:::
+
+## Temas (apariencias predeterminadas)
+
+Controlan múltiples aspectos de la apariencia del gráfico sin alterar los datos.
+
+- 8 disponibles con `ggplot2`  
+- paquetes con temas adicionales: [`ggthemes`](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/), [`artyfarty`](https://datarootsio.github.io/artyfarty/articles/introduction.html), [`hrbrthemes`](https://github.com/hrbrmstr/hrbrthemes)`  
+- crear tema propio
+
+![](imgs/themesgg.png){width="60%"}
+
+##
+
+
+```{r}
+#| eval: true
+#| echo: false
+
+ggplot(ranas,aes(x=svl,y=freq_dom,shape=familia, color=familia))+
+  geom_point()+theme_bw()+theme(legend.position = "none")+
+ggplot(ranas,aes(x=svl,y=freq_dom,shape=familia, color=familia))+
+  geom_point()+theme_stata()+theme(legend.position = "none")+
+ggplot(ranas,aes(x=svl,y=freq_dom,shape=familia, color=familia))+
+  geom_point()+theme_gdocs()+
+ggplot(ranas,aes(x=svl,y=freq_dom,shape=familia, color=familia))+
+  geom_point()+theme_fivethirtyeight()
+```
+
+
+
+## Otras rampas de color
+
+- Para poder percibir un valor central y acomodar valores de menor a mayor
+
+![](imgs/batlow.png){fig-align="center" fig-size="80%"}
+  
+:::{style="text-align:center"}  
+🔗 Fabio Crameri - [Scientific Color Maps](https://www.fabiocrameri.ch/colourmaps/)
+:::
+
+## Rampas de color uniformes (perceptualmente)
+
+::: columns
+::: {.column width="45%"}
+![](imgs/viridis-scales.png){width="65%"}
+![](imgs/scicopals.png){width="65%"}
+:::
+
+::: {.column width="55%"}
+### viridis
+- instaladas con `ggplot2`
+- usar con `scale_x_viridis()`  
+  
+### scico
+- instaladas con `scico`
+- divergentes y secuenciales
+:::
+:::
+
+## Ejercicio {background-image="imgs/aquatic.jpg"}
+
+Variables continuas y colores
+
+:::{style="background-color:#026937; color:white; font-size: 1.5em;"}
+`ranas.csv`{style="color:orange"}  
+`03_rampas.R`{style="color:orange"}  
+:::
+
+# Modificando cualquier otro elemento
+
+## Argumentos de `theme()`
+
+::: columns
+::: {.column width="50%"}
+![](imgs/theme1.png)
+:::
+
+::: {.column width="50%"}
+![](imgs/theme2.png)
+:::
+:::
+
+## `theme()`
+
+Cambiar fondos, texto y líneas con:
+
+- `element_text`
+- `element_rect`
+- `element_blank` para suprimir 
+
+
+
+## Ejercicio {background-color="#6aa3b8"}
+
+Con cualquier figura de los ejercicios anteriores:
+
+. . . 
+
+Concurso de crear el gráfico más feo posible mediante personalización de colores, tamaños, fuentes, etc. (SIN PERDER LA REPRESENTACIÓN VISUAL DE LOS DATOS)
+
+# Exportando gráficos
+
+## Opciones 
+
+- Con botón 'Export' de RStudio
+- Con dispositivos gráficos
+- Con `ggsave()`  
+- Formato: png (preferible), jpg, pdf, etc.
+
+## Exportando con dispositivo gráfico
+
+:::{.callout-note}
+## 
+Los gráficos se pueden asignar a objetos en el entorno de trabajo
+:::
+
+```{r}
+#| echo: true
+#| eval: false
+
+figura_ranas <- 
+ggplot(ranas,
+       aes(x=svl,y=freq_dom,fill=svl))+
+  geom_point(size=4,color="white",pch=21)
+
+png(filename = "mifigura.png",
+    width = 10, 
+    height = 10,
+    units ="cm",
+    res = 200)
+figura_ranas
+dev.off()
+```
+
+## Dispositivos gráficos de `ragg`
+
+- Más rápidos y mejor resolución
+- Disponibles instalando el paquete `ragg`
+
+::: {.med-code}
+```{r}
+#| echo: true
+#| eval: false
+
+figura_ranas <- 
+ggplot(ranas,aes(x=svl,y=freq_dom,fill=svl))+
+  geom_point(size=4,color="white",pch=21)
+
+agg_png(filename = "mifigura.png",
+    width = 10, height = 10,
+    units ="cm",
+    res = 200)
+figura_ranas
+dev.off()
+```
+:::
+
+## `ggsave()`
+
+- Usa `ragg` si lo encuentra instalado
+
+::: {.big-code}
+```{r}
+#| echo: true
+#| eval: false
+
+ggsave(figura_ranas, 
+  filename = "mifigura.png",
+    width = 10, 
+    height = 10,
+    units ="cm",
+    dpi = 200)
+
+```
+:::
+
+## ¿Quedó raro?
+
+![](imgs/exportando.png)
+
+Argumento `scale` en `ggsave()` y `scaling` en dispositivos de `ragg` para ajustar
+
+
+## Figuras multipanel
+
+![](imgs/exprgutsoct2021_final.png){fig-align="center"}
+
+## Funciones `facet()`
+
+`facet_wrap()`{style="color:orange" size=1.2em} para separar por una sola variable y 'envolver'
+
+`facet_grid()`{style="color:orange" size=1.2em} para separar con combinaciones de variables
+
+![](imgs/position-facets.png){fig-align="center"}
+
+## Ejercicio {background-image="imgs/dona.jpg"}
+
+Múltiplos
+
+:::{style="background-color:#026937; color:white; font-size: 1.5em;"}
+`cafeteria.csv`{style="color:orange"}  
+`04_multipanel.R`{style="color:orange"}  
+:::
+
+
+## Reordenar elementos (ejes, paneles) 
+
+Orden alfabético de los niveles de la variable _tipo_
+
+```{r}
+#| eval: true
+#| echo: false
+cafeteria <- read.csv(here("archivos-ej","cafeteria.csv"))
+```
+
+```{r}
+#| echo: true
+#| eval: true
+ggplot(cafeteria,aes(carbohidratos,proteina))+
+  geom_point()+facet_wrap("tipo")
+```
+
+## Factores
+
+::: columns
+::: {.column width="50%"}
+* Variables categóricas
+* conjunto fijo y conocido de valores posibles
+* muy útiles para ordenar vectores en un orden distinto al alfabético
+:::
+
+::: {.column width="50%"}
+![](imgs/factor.jpg)
+:::
+:::
+
+
+## Categorías
+
+:::{.big-code}
+```{r}
+#| echo: true
+#| output-location: slide
+cafeteria$tipo
+```
+:::
+
+## 
+
+:::{.big-code}
+```{r}
+#| echo: true
+#| output-location: slide
+factor(cafeteria$tipo)
+```
+:::
+
+## 
+
+:::{.big-code}
+```{r}
+#| echo: true
+#| output-location: slide
+levels(factor(cafeteria$tipo))
+```
+:::
+
+
+## Factores
+
+Los niveles de un factor se pueden especificar manualmente con un vector en el argumento `levels`
+
+::: columns
+::: {.column width="82%"}
+Para cualquier otra manipulación de factores:  
+`forcats`
+:::
+
+::: {.column width="18%"}
+![](imgs/forcatslogo.png)
+:::
+:::
+
+
+## `forcats`
+
+- reordenar una variable según los valores de otra
+- suprimir orden alfabético
+- invertir orden de los niveles
+- agrupar niveles
+
+## Ejercicio {background-image="imgs/marina.jpg"}
+
+:::{style="background-color:#026937; color:white; font-size: 1.5em;"}
+edad_gateo.csv    
+05_reordenar.R  
+:::
+
+:::{.callout-note}
+## 
+Datos sobre la edad (semanas) de gateo en relación a temperatura y mes de nacimiento. Tomado de Benson (1993).
+:::
+
+# Figuras compuestas {background-image="imgs/patchdrone.jpg"}
+
+**Diana Marcela Ochoa Sanz**
+
+## `patchwork`
+
+::::: columns
+::: {.column width="20%"}
+![](imgs/patchworklogo.png)
+:::
+
+::: {.column width="80%"}
+-   Símbolo `+` para acomodar dos gráficos juntos
+-   Símbolo `|` para figuras lado a lado
+-   Símbolo `/` para apilar figuras
+:::
+:::::
+
+-   Álgebra simple para anidar y acomodar elementos
+-   `plot_layout()` para controlar la composición
+-   `plot_annotation()` para rotular elementos o agregar textos
+
+------------------------------------------------------------------------
+
+```{r}
+ggplot(cafeteria,aes(carbohidratos,grasa))+
+     geom_point()+
+ggplot(cafeteria,aes(energia,proteina))+
+     geom_point()  
+
+```
+
+------------------------------------------------------------------------
+
+Más fácil de leer:
+
+```{r}
+grasaCarb <- ggplot(cafeteria,aes(carbohidratos,grasa))+
+     geom_point()
+protEnergia <- ggplot(cafeteria,aes(energia,proteina))+
+     geom_point()  
+
+grasaCarb+protEnergia
+```
+
+------------------------------------------------------------------------
+
+Tres figuras:
+
+```{r}
+grasaCarb+protEnergia+
+  ggplot(ranas,
+       aes(x=svl,y=freq_dom,fill=svl))+
+  geom_point(size=4,color="white",pch=21)
+  
+```
+
+------------------------------------------------------------------------
+
+En una sola columna
+
+```{r}
+puntos_ranas <- 
+  ggplot(ranas,aes(x=svl,y=freq_dom,fill=svl))+
+  geom_point(size=4,color="white",pch=21)
+```
+
+```{r}
+grasaCarb+protEnergia+puntos_ranas+
+  plot_layout(ncol=1)
+
+```
+
+------------------------------------------------------------------------
+
+Anidando:
+
+::: med-code
+```{r}
+(grasaCarb+protEnergia)/puntos_ranas
+```
+:::
+
+------------------------------------------------------------------------
+
+::: med-code
+```{r}
+(grasaCarb/protEnergia)|puntos_ranas
+```
+:::
+
+------------------------------------------------------------------------
+
+Aprovechando los espacios
+
+```{r}
+protEnergia_mod <- protEnergia + labs(x = "*Esta es una etiqueta tan larga e importante \nque tiene que abarcar muchas líneas \nen el gráfico")
+
+grasaCarb | protEnergia_mod
+
+```
+
+##
+
+```{r}
+
+protEnergia_mod <- protEnergia + labs(x = "*Esta es una etiqueta tan larga e importante \nque tiene que abarcar muchas líneas \nen el gráfico")
+
+
+free(grasaCarb) | protEnergia_mod
+
+```
+
+## Recuadros
+
+```{r}
+puntos_ranas + 
+  inset_element(grasaCarb, left = 0.6, bottom = 0.6, right = 1, top = 1)
+```
+
+## Anotaciones
+
+```{r}
+((grasaCarb/protEnergia)|puntos_ranas)+
+  plot_annotation(title="Mi figura de tres elementos",
+                  subtitle = "ejemplo de patchwork",
+                  tag_levels = "A")
+```
+
+`tag_levels` genera diferentes secuencias alfabéticas o numéricas para identificar a cada elemento
+
+## Texto con formato
+
+Podemos usar *markdown* para darle formato al texto que aparece en diferentes elementos de nuestras gráficas, a través de la función `element_markdown()` del paquete **`ggtext`**
+
+[Documentación del paquete](https://wilkelab.org/ggtext/)
+
+```{r}
+#| eval: false
+#| echo: true
+library(ggtext)
+ggplot(cafeteria,aes(carbohidratos,grasa,color=bajo_grasa))+
+geom_point()+
+  scale_color_discrete(labels=c("Chatarra  **Grasienta**","light"))+
+  theme(legend.text = element_markdown())
+```
+
+## 
+
+```{r}
+library(ggtext)
+ggplot(cafeteria,aes(carbohidratos,grasa,color=bajo_grasa))+
+geom_point()+
+  scale_color_discrete(labels=c("Chatarra  **Grasienta**","light"))+
+  theme(legend.text = element_markdown())
+```
+
+## Acomodar leyendas
+
+```{r}
+library(ggtext)
+grasaCarb2 <- ggplot(cafeteria,aes(carbohidratos,grasa,color=bajo_grasa, size = proteina))+
+geom_point()+
+  scale_color_discrete(labels=c("Chatarra  **Grasienta**","light"))+
+  theme(legend.text = element_markdown())
+
+grasaCarb2 | (puntos_ranas / protEnergia)
+
+```
+
+##
+
+```{r}
+(grasaCarb2 | (puntos_ranas / protEnergia)) + plot_layout(guides = 'collect')
+```
+
+## Leyendas repetidas
+
+```{r}
+library(ggtext)
+protEnergia2 <- ggplot(cafeteria,aes(energia,proteina,color=bajo_grasa))+ geom_point() +
+  scale_color_discrete(labels=c("Chatarra  **Grasienta**","light"))+
+  theme(legend.text = element_markdown())
+
+grasaCarb2 | (puntos_ranas / protEnergia2)
+
+```
+
+##
+
+```{r}
+(grasaCarb2 | (puntos_ranas / protEnergia2)) + 
+  plot_layout(guides = 'collect')
+```
+
+## Ejes repetidos
+
+```{r}
+library(ggtext)
+grasaenergia <- ggplot(cafeteria,aes(energia,grasa)) +
+   geom_point()
+
+grasaCarb + grasaenergia
+
+```
+
+##
+
+```{r}
+grasaCarb + grasaenergia + plot_layout(axes = "collect")
+```
+
+------------------------------------------------------------------------
+
+Solo los títulos de eje
+
+```{r}
+grasaCarb + grasaenergia + plot_layout(axis_titles = "collect")
+```
+
+------------------------------------------------------------------------
+
+También funciona en la otra dirección
+
+```{r}
+grasaCarb / grasaenergia + plot_layout(axis_titles = "collect")
+```
+
+## Combinar gráficos base y ggplot2
+
+`wrap_elements()` es el puente que convierte cualquier gráfico en algo que patchwork puede tratar como si fuera un ggplot
+
+</br> 
+```{r}
+#| eval: false
+#| echo: true
+p1 | wrap_elements(full = ~plot(x, y))
+```
+
+::: callout-note
+## 
+
+Solo se combinan gráficos R base si se pasan como fórmula.
+:::
+
+##
+
+```{r}
+grasaCarb <- ggplot(cafeteria,aes(carbohidratos,grasa))+
+  geom_point()
+
+grasaCarb + wrap_elements(full = ~ plot(cafeteria$energia, cafeteria$proteina))
+```
+
+------------------------------------------------------------------------
+
+Agregándole título
+
+```{r}
+grasaCarb <- ggplot(cafeteria,aes(carbohidratos,grasa))+
+  geom_point()
+
+grasaCarb + wrap_elements(full = ~ plot(cafeteria$energia, cafeteria$proteina, main = "Figura R base"))
+```
+
+
+## 
+
+```{r}
+grasaCarb + wrap_elements(full = ~ {
+  par(mar = c(4, 4, 2, 1))
+  plot(cafeteria$energia, cafeteria$proteina,
+       main = "Figura R base")
+})
+```
+
+------------------------------------------------------------------------
+
+Uniendo una tabla
+
+```{r}
+#| echo: true
+#| output-location: column-fragment
+library(gridExtra)
+
+tabla <- cafeteria |>
+  group_by(tipo) |>
+  summarise(
+    n          = n(),
+    kcal_prom  = round(mean(energia)),
+    grasa_prom = round(mean(grasa), 1),
+    prot_prom  = round(mean(proteina), 1)
+  )
+
+# convertir tabla en un objeto gráfico
+
+tabla_plot <- tableGrob(
+  tabla,
+  rows  = NULL,
+  theme = ttheme_minimal(base_size = 9)
+)
+
+grasaCarb + wrap_elements(full = tabla_plot) +
+  plot_layout(widths = c(1, 1)) +
+  plot_annotation(title = "Titulo del gráfico y tabla")
+
+```
+
+## Ejercicio {background-color="#6aa3b8"}
+
+Con las figuras puntos_ranas, grasaCarb y protEnergia de los ejercicios anteriores, hacer la siguiente:
+
+```{r}
+#| eval: true
+#| echo: false
+puntos_ranas + grasaCarb + protEnergia + 
+plot_layout(ncol = 2,widths = c(2, 1), byrow = FALSE, guides = "collect") + 
+plot_annotation(tag_levels = "a") & theme(plot.tag = element_text(face = "bold"))
+```
+
+##
+
+```{r}
+puntos_ranas + grasaCarb + protEnergia + 
+plot_layout(ncol = 2,widths = c(2, 1), byrow = FALSE, guides = "collect") + 
+plot_annotation(tag_levels = "a") & theme(plot.tag = element_text(face = "bold"))
+```
+
+
+## Extensiones para `ggplot2`
+
+[Taller LatinR](https://luisdva.github.io/ggmas/)
+
+[Galería oficial de extensiones](https://exts.ggplot2.tidyverse.org/)
+
+# Fin día 3

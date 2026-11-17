@@ -1,0 +1,1228 @@
+---
+title: "Lo que nadie nos enseñó sobre R"
+author: Luis D. Verde Arregoitia
+format:
+  revealjs:
+    theme: curso_styles.scss
+    transition: fade
+    progress: true
+    preview-links: true
+    hide-inactive-cursor: true
+    highlight-style: printing
+    pause: true
+editor: source
+knitr:
+  opts_chunk:
+    dev: "ragg_png"
+    retina: 3
+    dpi: 200
+execute:
+  freeze: auto
+  cache: true
+  echo: true
+  fig-width: 5
+  fig-height: 6
+---
+
+## Temas de este bloque:
+
+- Entornos de trabajo y configuración  
+- Iteración y vectorización para evitar repetición  
+- Trabajando con listas  
+- Atajos y herramientas para mayor eficiencia   
+- Novedades  
+
+```{r}
+#| echo: false
+library(dplyr)
+library(gt)
+library(ggplot2)
+```
+
+
+# Personalizando el entorno de trabajo
+
+## Personalización
+
+-   Colores para el IDE - 🔗 [rsthemes](https://www.garrickadenbuie.com/project/rsthemes/) por Garrick Aden-Buie 
+
+::: {style="background-color: #0e7774; box-shadow: 10px 10px grey;  padding: 25px"}
+
+:::{.neonText}
+*Nadie nos va a tomar en serio en la cafetería si no programamos con un fondo oscuro*
+:::
+
+::: {style="text-align: right"}
+*-Jared Lander*\
+📼 [R: Then and now](https://www.youtube.com/watch?v=gjpNEVcG1nU)
+:::
+:::
+
+-   Fuentes y texto - 🔗 [Nerd Fonts](https://www.nerdfonts.com/font-downloads)
+
+-   Disposición de los paneles
+
+## Personalización
+
+### Positron
+
+- Mercado OpenVSX (íconos, temas, asistentes, etc.)
+- Disposición de elementos flexible
+- Fuentes (Font Changer)
+
+# Iteración 
+
+## Aplicando una función varias veces
+
+Copiar/pegar código para editarlo en análisis repetitivos agrega pasos innecesarios, quita tiempo, y aumenta el riesgo de introducir errores 
+
+</br>
+
+::::{.rightref}
+:::{.refbox}
+Nick Holt (2017)\
+[Function Iterations in R](https://nick-holt.github.io/2017/12/function-iterations-in-r/)
+:::
+::::
+
+## Ejercicio - futbol {background-color="#6aa3b8"}
+
+El archivo `tabla_futbol.csv` contiene la clasificación en la tabla global de la FIFA de los primeros 20 países de 1994 a 2022 y sus respectivas federaciones.
+
+</br> 
+
+¿De qué confederación fue el equipo 20 cada año?  
+
+ej. para 1994 Zambia fue #20 y su confederación es "CAF"
+
+
+##
+
+### Copiando, pegando, y editando
+
+
+```{r}
+#| eval: false
+ranking1994 <- fifa20esp[fifa20esp$periodo=="1994-06-14",]
+pais201994 <- ranking1994[ranking1994$posicion==20,]$pais
+pais201994
+ranking1995 <- fifa20esp[fifa20esp$periodo=="1995-06-13",]
+pais201995 <- ranking1995[ranking1995$posicion==20,]$pais
+pais201995
+```
+
+> Siguiendo así seguramente introducimos algún error poco evidente y difícil de detectar
+
+## Datos agrupados
+
+La mayoría de nuestras tareas se pueden desarrollar siguiendo el paradigma "_dividir - aplicar - combinar_" (
+["split-apply-combine"]{style="color: purple"}):
+
+- dividir los datos en grupos
+- aplicar alguna función a cada grupo
+- combinar los resultados
+
+::::{.rightref}
+:::{.refbox}
+Data Carpentry (2018)\
+[Aggregating and analyzing data with dplyr](https://datacarpentry.org/R-genomics/04-dplyr.html)
+
+Hadley Wickham (2011)\
+[The split-apply-combine strategy for data analysis](https://doi.org/10.18637/jss.v040.i01)
+:::
+::::
+
+## `dplyr::group_by()`
+
+- Define grupos según una o más variables  
+- Estratifica un data frame  
+- equivalente a `aggregate()` y al argumento '`by =`' de `data.table`
+
+![Manipulación de datos en R con dplyr - Rubén Sánchez](imgs/groupby.PNG){width="64%"}
+
+
+
+## Trabajando con datos agrupados
+
+Con la versión agrupada de nuestra tabla, las funciones de `dplyr` trabajan sobre cada grupo por separado y después se combinan los resultados.
+
+</br>
+
+::::{.rightref}
+:::{.refbox}
+RStudio (2021)\
+[Data transformation with dplyr cheatsheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/data-transformation.pdf)
+:::
+:::
+
+## Opciones para datos agrupados
+
+- resumir valores (media, mediana, etc. por grupo)
+- extraer las primeras o últimas _n_ filas por grupo
+- identificar valores máximos o mínimos
+- eliminar filas repetidas
+- contar observaciones, etc.
+
+## Datos `msleep`
+
+Rasgos de 83 especies de mamíferos y sus horas de sueño. derivados de Savage & West (2007) e incluidos con `ggplot2`.
+
+
+```{r}
+#| echo: false
+msleep |> head() |> gt() |> 
+  tab_style(
+    cell_text(size = '21px'),
+    locations = list(cells_body(),
+                     cells_column_labels(everything()),
+                     cells_title()))
+```
+
+## Máximo `brainwt` para cada orden
+
+:::{.med-code}
+```{r}
+#| eval: true
+#| echo: true
+#| output-location: fragment
+
+msleep |> group_by(order) |> 
+  slice_max(brainwt,n=1)
+```
+:::
+
+## Muestrar una fila al azar de cada grupo
+
+:::{.med-code}
+```{r}
+#| eval: true
+#| echo: true
+#| output-location: fragment
+
+msleep |> group_by(order) |> 
+  slice_sample(n=1)
+```
+:::
+
+## "Desagrupar"
+
+Las tablas agrupadas por `group_by` retienen el agrupamiento, y para descartarlo usamos `ungroup()`
+
+```{r}
+#| eval: true
+#| echo: true
+#| output-location: fragment
+
+msleep |> group_by(order) |> 
+  slice_sample(n=1) |> ungroup()
+```
+
+## Agrupamiento rápido
+
+En versiones recientes de `dplyr`:
+
+- Agrupar con `.by` o `by`
+
+```{r}
+msleep |> slice_sample(n=2, by = order) 
+```
+
+##
+
+> Usando el argumento `by` ya no se quedan 'pegados' los grupos (agrupamiento persistente vs. agrupamiento por operación)
+
+> A veces usamos `.by` y a veces `by`
+
+[Blog](https://dplyr.tidyverse.org/reference/dplyr_by.html)
+
+## Resumiendo valores
+
+:::{.med-code}
+```{r}
+#| eval: true
+#| echo: true
+#| output-location: fragment
+
+msleep |> group_by(order) |> 
+  summarize(mediana_slp = median(sleep_total),
+            media_brainwt=mean(brainwt))
+```
+:::
+
+## Resumiendo valores
+
+:::{.med-code}
+```{r}
+#| eval: true
+#| echo: true
+#| output-location: fragment
+
+msleep |>  
+  summarize(mediana_slp = median(sleep_total),
+            media_brainwt=mean(brainwt), .by = "order")
+```
+:::
+
+
+## Ejercicio - futbol {background-color="#6aa3b8"}
+
+Ahora sí, a responder:
+
+- ¿De qué confederación fue el equipo 20 cada año? 
+- Puntos totales por año para todos los equipos 
+
+## Bucles (_for loops_)
+
+- De gran utilidad
+- No siempre es necesario escribirlos de 0
+- Llevan >20 años corriendo rápido
+
+
+::: columns
+::: {.column width="40%"}
+![](imgs/Homer.png)
+:::
+
+::: {.column width="60%"}
+::::{.rightref}
+:::{.refbox}
+Jenny Bryan\
+[purrr tutorial](https://jennybc.github.io/purrr-tutorial/index.html)\
+[Data Rectangling](https://speakerdeck.com/jennybc/data-rectangling)\
+[purrr workshop](https://speakerdeck.com/jennybc/purrr-workshop)
+:::
+:::
+
+:::
+:::
+
+## Bucles
+
+::: columns
+::: {.column width="58%"}
+
+:::{.med-code}
+```{r}
+#| echo: true
+#| eval: false
+
+for (value in sequence){
+   statement(s)
+}
+
+```
+:::
+
+Ejecuta una serie de enunciados (*statements*), una vez para cada elemento de un vector o lista. Se detiene al llegar al último elemento.
+
+:::
+
+::: {.column width="42%"}
+:::{.med-code}
+```{r}
+#| eval: true
+#| echo: true
+for (x in 1:7){
+  print(x)
+} 
+```
+:::
+:::
+:::
+
+## Ejercicio - _loops_ {background-color="#6aa3b8"}
+
+Escribir un bucle para imprimir en la consola cada letra del alfabeto, en minúscula y en orden descendiente (z,y,x,w...)
+</br>
+
+:::{.callout-note}
+##
+hay constantes pre-instaladas en R que les pueden servir
+:::
+
+
+
+## Bucles y grupos
+
+:::{.med-code}
+```{r}
+#| eval: false
+#| echo: true
+
+msleep |> 
+  group_by(order) |> # para cada orden
+  slice_sample(1) # declaración a ejecutar 
+                        
+```
+:::
+
+Todo se queda dentro del data frame
+
+## Vectorización 
+
+Operaciones que ocurren en paralelo en todos los elementos (de un vector, lista, etc.) y no uno por uno en cada elemento
+
+#### ¿Aquí qué pasa?
+
+:::{.big-code}
+```{r}
+#| eval: false
+#| echo: true
+
+x <- c(1,3,12,4,7,8)
+x > 5
+```
+:::
+
+
+## Los operadores lógicos (entre muchos otros) son vectorizados
+
+:::{.med-code}
+```{r}
+#| eval: true
+#| echo: true
+
+x <- c(1,3,12,4,7,8)
+x > 5
+```
+:::
+
+No hace falta teclear todo ésto o escribir un bucle
+
+:::{.med-code}
+```{r}
+#| eval: false
+#| echo: true
+
+x[1]>5 ; x[2]>5
+x[3]>5 ; x[4]>5
+x[5]>5 ; x[6]>5
+```
+:::
+
+
+------------------------------------------------------------------------
+
+![American Greetings](imgs/dogscopy.jpg){width="36%" fig-align="center"}
+
+
+
+## Cuando sí necesitemos iterar:
+
+::: columns
+::: {.column width="25%"}
+![](imgs/purrr.jpeg)
+:::
+
+::: {.column width="75%"}
+📦 **`purrr`** - Herramientas para programación funcional
+
+-   funciones `map` que aplican una función a cada elemento de una lista o vector y devuelve un resultado de la misma longitud que la entrada
+
+-   trabaja bien con **listas**
+-   código legible y conciso
+:::
+:::
+
+::::{.rightref}
+:::{.refbox}
+Thomas Mock (2018)\
+[Functional Programming in R with purrr](https://towardsdatascience.com/functional-programming-in-r-with-purrr-469e597d0229)
+:::
+:::
+------------------------------------------------------------------------
+
+::: {style="text-align: center"}
+[map(]{style="color:blue; font-family: monospace; font-weight: bold;font-size: 1.9em"}[.x]{style="color: red; font-family: Liberation Mono; font-weight: bold;font-size: 1.9em"}, [.f]{style="color: green; font-family: Liberation Mono; font-weight: bold;font-size: 1.9em"}[, ...)]{style="color:blue; font-family: Liberation Mono; font-weight: bold; font-size: 1.9em"}
+
+</br>
+
+para cada elemento de [.x]{style="color: red; font-family: Liberation Mono; font-weight: bold"}
+
+aplica [.f]{style="color: green; font-family: Liberation Mono; font-weight: bold"}
+
+`...` argumentos para [.f]{style="color: green; font-family: Liberation Mono; font-weight: bold"}
+:::
+
+## "Mapeando" funciones a datos
+
+</br>
+`map(.x,`[.f]{style="color: green; font-family: monospace; font-weight: bold"}`)`
+
+[.f]{style="color: green; font-family: monospace; font-weight: bold"} se puede especificar como:
+
+:::{.incremental}
+- una función existente
+
+- una función anónima definida sobre la marcha
+
+- una fórmula: notación abreviada para funciones 
+
+- una función anónima abreviada (_shorthand_) en versiones recientes de R 
+:::
+
+## Funciones
+
+![[Learn by Example.com](https://www.learnbyexample.org/r-functions/)](imgs/r-function-syntax.png)
+
+
+## Definiendo funciones
+
+usamos la función '`function()`'
+
+`function( arglist ) expr`{style="font-size: 1.5em; text-align: center; font-family: monospace; font-weight: bold"}
+
+</br>
+
+**argumentos** (`arglist`): valores para la función
+
+**expresión** (`expr`): un objeto que representa una acción que R puede hacer
+
+:::{.callout-note}
+##
+Las expresiones pueden tener una o más declaraciones
+:::
+
+## Definiendo funciones
+
+:::{.med-code}
+
+```{r}
+#| eval: true
+#| echo: true
+ 
+mi_funcion <- function(mi_argumento){
+  mi_argumento+1 # declaración
+}
+
+mi_vector <- c(3,5,6,7)
+
+mi_funcion(mi_argumento = mi_vector)
+
+```
+:::
+
+------------------------------------------------------------------------
+
+El cuerpo de la función (las declaraciones que se ejecutan al correr la función) se agrupa con llaves (`{}`)
+
+:::{.med-code}
+```{r}
+
+miFunc <- function(x) {
+  x + 4 # cuerpo
+}
+```
+:::
+</br>
+
+::: columns
+::: {.column width="35%"}
+
+:::{.med-code}
+```{r}
+#| echo: true
+#| eval: true
+
+miFunc(6)
+miFunc(x=6)
+```
+:::
+:::
+
+::: {.column width="65%"}
+Al ejecutar funciones es opcional especificar los nombres de los argumentos, pero en funciones con \>1 argumentos, el orden importa
+:::
+:::
+
+------------------------------------------------------------------------
+
+**PERO** no hacen falta llaves para funciones con una sola declaración
+
+:::{.big-code}
+```{r}
+#| echo: true
+#| eval: true
+f <- function(x) x+4   
+f(x=6)
+```
+:::
+
+:::{.big-code}
+```{r}
+#| echo: true
+#| eval: true
+f <- function(x) mean(x)/2   
+f(c(6,43,12,5,7))
+```
+:::
+
+------------------------------------------------------------------------
+
+Las llaves rodean el cuerpo en funciones con dos o más declaraciones
+
+:::{.med-code}
+```{r}
+#| eval: false
+#| echo: true
+
+f <- function(x)  y <- (x*0.2885) log(y) # ERROR  
+```
+:::
+
+Así sí funciona. Las declaraciones (statements) están en líneas separadas
+
+:::{.med-code}
+```{r}
+#| echo: true
+#| eval: true
+f <- function(x) {
+  y <- (x*0.2885) # una declaración
+  log(y)          # otra declaración
+}
+
+f(5)
+```
+:::
+
+## Función sin argumentos
+
+```{r}
+queHoraEs <- function(){
+format(Sys.time(), "%H:%M")
+}
+queHoraEs()
+```
+
+## Funciones anónimas
+
+**Funciones para llevar** (se crean y se ejecutan pero nunca se asignan a un objeto con nombre)
+
+### Sintaxis
+
+:::{.big-code}
+```{r}
+#| echo: true
+#| eval: true
+(function(x) x * x + 3)(10)
+```
+:::
+
+
+La definición va entre paréntesis para separar la función de sus argumentos
+
+------------------------------------------------------------------------
+
+:::{.big-code}
+```{r}
+#| eval: false
+#| echo: true
+
+(function(x) x + 3)(10)
+```
+:::
+
+Es lo mismo que:
+
+:::{.big-code}
+```{r}
+#| eval: false
+#| echo: true
+
+f <- function(x) x + 3
+f(10)
+# o bien 
+f <- function(x) {x + 3}
+f(10)
+
+```
+:::
+
+## Notation corta (desde R v4.1.0)
+
+Reemplaza "`function(x) {}`" con "`\(x){}`"
+
+:::{.big-code}
+```{r}
+#| eval: true
+#| echo: true
+
+(\(x) x + 3)(10)
+
+(\(x) x / 2)(10)
+```
+:::
+
+
+::::{.rightref}
+:::{.refbox}
+Russ Hyde (2021)\
+[New features in R 4.1.0](https://www.jumpingrivers.com/blog/new-features-r410-pipe-anonymous-functions/)
+:::
+:::
+
+:::{.callout-note}
+## 
+Los desarrolladores del `tidyverse` están migrando al uso de esta notación; en `purrr`  ver este [PR](https://github.com/tidyverse/purrr/pull/1220)
+
+:::
+
+
+## Funciones anónimas
+
+- Útiles para aplicar una función personalizada a varios elementos a la vez
+
+- También conocidas como  *expresiones lambda*
+
+- Autocontenidas
+
+- Comparables con métodos parecidos en Python
+
+## Por qué escribir nuestras propias funciones
+
+- Menos repetición  
+
+- Mayor brevedad  
+
+- Menor posibilidad de errores 
+
+- Aprovechar las herramientas que nos dejan aplicar funciones a muchos elementos a la vez
+
+::::{.rightref}
+:::{.refbox}
+Jenny Bryan - Stat545\
+[Write your own R functions](https://stat545.com/functions-part1.html)
+:::
+:::
+
+# Listas
+
+## Listas 
+
+Objetos que pueden contener elementos de diferentes tipos como números, cadenas de texto, vectores, tablas, o incluso más listas
+
+:::{.med-code}
+```{r}
+#| echo: true
+#| eval: true 
+ 
+mi_lista <- list(
+  un_numero = 7,
+  un_vector = c("rata", "gato", "taco"),
+  un_dataframe = data.frame(
+    a = 1:3, b = c("K", "L", "M")))
+```
+:::
+
+::::{.rightref}
+:::{.refbox}
+Rebecca Barter (2019)\
+[Learn to purrr](https://www.rebeccabarter.com/blog/2019-08-19_purrr/)
+:::
+:::
+
+------------------------------------------------------------------------
+
+:::{.med-code}
+```{r}
+mi_lista
+```
+:::
+
+
+
+## Podemos creas listas partiendo otros objetos
+
+Separando una data frame agrupada en una lista de data frames, una para cada grupo.
+
+```{r}
+
+gremios <- 
+  msleep |> group_by(vore) |>
+  group_split()
+```
+
+## 
+
+```{r}
+gremios
+```
+
+## 
+
+```{r}
+class(gremios)
+```
+
+##
+
+`group_keys()` muestra los grupos
+
+:::{.med-code}
+```{r}
+msleep |> group_by(vore) |>
+  group_keys()
+```
+:::
+
+## 'Indexando' listas
+
+![Hadley Wickam (2015) en [Twitter](https://twitter.com/hadleywickham/status/643381054758363136?s=20&t=0Gu4Qs757o5KHEJR2ZwkEg)](imgs/listspepper.png){width="76%"}
+
+## Accediendo a elementos de listas
+
+Primer elemento (`[[1]]`)
+
+```{r}
+#| eval: true
+#| echo: true
+ 
+gremios[[1]] |> 
+  select(name,genus) |> head()
+
+```
+
+
+## Segundo elemento
+
+```{r}
+#| eval: true
+#| echo: true
+
+gremios[[2]] |> 
+  select(name,genus, vore, conservation) |> 
+  head
+
+```
+
+##
+
+![](imgs/purrrPost.png)
+
+
+::: {style="text-align: right"}
+Luis (2017)\
+[Export Iteratively](https://luisdva.github.io/rstats/export-iteratively/)
+:::
+
+## ¿Para qué usar listas?
+
+- Clase versátil para almacenar varios tipos de objetos
+
+- Fáciles de crear partiendo otros objetos
+
+- Cada elemento puede tener nombre
+
+## 'Mapeo' de funciones a datos
+
+- Aplicar funciones iterativamente
+
+- Importar varios archivos en un solo comando
+
+- Modificar y/o exportar múltiples objetos
+
+## Aplicar funciones iterativamente
+
+```{r}
+#| eval: true
+#| echo: true
+
+library(datos)
+library(purrr)
+# tres vectores (numéricos)
+masa <- pinguinos$masa_corporal_g
+pico <- pinguinos$largo_pico_mm
+aleta <- pinguinos$largo_aleta_mm
+# juntarlos en una lista
+rasgos <- list(masa,pico,aleta)
+# aplicar la función "mean" a cada elemento
+map(rasgos,mean)
+```
+## 
+
+### con argumentos adicionales
+
+```{r}
+# aplicar la función "mean" a cada elemento
+map(rasgos,mean,na.rm=TRUE)
+```
+
+## Aplicar funciones personalizadas iterativamente
+
+:::{.med-code}
+```{r}
+
+# obtener min, max, y la diferencia
+resumenMMR <- function(x){
+  min_x <- min(x,na.rm = TRUE)
+  max_x <- max(x,na.rm = TRUE)
+  maxmin <- max_x - min_x
+  c(min_x, max_x, maxmin)
+}
+
+```
+:::
+
+## Probar con vectores
+
+:::{.med-code}
+```{r}
+resumenMMR(masa)
+resumenMMR(aleta)
+```
+:::
+
+## `map()` para aplicar nuestra función a la lista
+
+:::{.callout-note}
+##
+Solo usamos el nombre de la función
+:::
+
+:::{.med-code}
+```{r}
+map(.x = rasgos, .f = resumenMMR)
+```
+:::
+
+
+## `map()` con salidas específicas
+
+`map()` regresa listas
+
+`map_lgl()` regresa un vector T/F
+
+`map_int()` regresa un vector numérico
+
+`map_dbl()` regresa un vector numérico (con decimales)
+
+`map_chr()` regresa un vector de caracteres
+
+`map_df()` junta todo en un data frame
+
+##
+
+:::{.med-code}
+```{r}
+
+# regresa una lista
+map(rasgos, median, na.rm = TRUE)
+# aplana la lista en un vector
+map_dbl(rasgos, median, na.rm = TRUE)
+
+```
+:::
+
+## `map()` con funciones anónimas
+
+Funciones que podemos escribir dentro de `map()` sin definir
+
+
+::::{.rightref}
+:::{.refbox}
+Mike Cheng (2019)\
+[Anonymous Functions in R - Part 1](https://coolbutuseless.github.io/2019/03/13/anonymous-functions-in-r-part-1/)
+:::
+:::
+
+## 
+
+Mismo comportamiento
+
+:::{.med-code}
+```{r}
+#| eval: false
+#| echo: true
+
+listaNums <- list(c(5:10),c(20:27))
+# función anónima
+map(listaNums, function(x) x+2)
+# notación 'nueva'
+map(listaNums,\(x) x+2)
+```
+:::
+
+## Importando o escribiendo muchos archivos
+
+[map(.x,.f)]{style="font-size: 1.5em; text-align: center; font-family: monospace"}
+
+`.x` puede ser una lista o vector de rutas de archivo
+
+`.f` puede ser una función que lee o escribe archivos
+
+:::{style="text-align: center"}
+📄📄📄📄📄📄📄📄📄
+:::
+
+## Ejercicio {background-color="#6aa3b8"}
+
+### Crear una carpeta llena de archivos de texto
+
+- cargar el archivo `resultados_21k.csv`
+
+- agrupar los datos por localidad y crear una lista de data frames con una para cada localidad
+
+- crear un vector con los nombres de las localidades
+
+:::{.callout-note}
+##
+ 😲 es posible iterar con dos _inputs_ en paralelo
+:::
+
+## `map()` con dos inputs
+
+[`map2(.x, .y, .f)`]{style="font-size: 1.5em; text-align: center; font-family: monospace"}
+
+Ambas listas de vectores de entrada se le pasan como argumentos a la función `.f`
+
+![](imgs/map2.png){width="87%"}
+
+::::{.rightref}
+:::{.refbox}
+Altman et al. (2021)\
+[Map with multiple inputs](https://dcl-prog.stanford.edu/purrr-parallel.html)
+:::
+:::
+
+## Ejercicio - Carpeta con archivos {background-color="#6aa3b8"}
+
+-   crear una carpeta "resultados21k" 
+
+-   usar `here()` para crear rutas estables y portátiles para cada localidad, por ejemplo: `here("datos","resultados21k","Usaquen")`, teniendo en cuenta que `here()` es una función vectorizada
+
+-   pasar la lista de data frames y el vector de rutas a `write_csv` de `readr` o `write.csv` de R base
+
+🔥🏃🔥
+
+## Ejercicio - Importando varios archivos a la vez {background-color="#6aa3b8"}
+
+- usar `dir_ls()` para crear un vector con las rutas de los archivos creados en el paso anterior
+
+- importar cada elemento de este vector con `map()` y `read_csv()` de `readr`
+
+- usar funciones con regresos específicos para terminar con la tabla inicial
+
+## `map` de alto rendimiento
+
+::: columns
+::: {.column width="25%"}
+![](https://mirai.r-lib.org/logo.png)
+:::
+
+::: {.column width="75%"}
+📦 **`mirai`** - Minimalist Async Evaluation Framework for R 
+
+-  Se encarga de todo para paralelizar funciones `map`
+-  De los núcleos de nuestra PC hasta SSH, Slurm, Torque, LSF
+:::
+:::
+
+## Con R base
+
+R base tiene herramientas para iterar desde sus inicios: **la familia `apply`**
+
+| `purrr` | R Base |
+|:---|:---|
+| `map()` | `lapply()` |
+| `map_dbl()`, etc. | `vapply()` (o `sapply()`) |
+| `map2()`, `pmap()` | `mapply()` |
+
+## Familia `apply`
+
+- **`lapply()`**: (**L**ist apply) Aplica una función a cada elemento de una lista o vector y siempre devuelve una **lista**.
+- **`sapply()`**: (**S**implified apply) Intenta simplificar el resultado de `lapply()`. Si puede, devuelve un vector o matriz; si no, una lista.
+- **`tapply()`**: (**T**able apply) Aplica una función a subconjuntos de un vector definidos por uno o más factores (agrupamientos).
+
+## ¿Por qué `purrr`?
+
+1. **Consistencia en argumentos**: En `purrr`, el objeto a iterar (`.x`) siempre es el primer argumento. En R base varía.
+2. **Type-safety**: `sapply()` puede devolver una lista, un vector o una matriz según el resultado.
+3. **Sintaxis**: Soporte para funciones anónimas 
+4. **Integración**: Funciona con el pipe (`|>`) y otras herramientas del `tidyverse`.
+
+## Ejemplo: `map()` vs `lapply()`
+
+::: columns
+::: {.column width="50%"}
+**purrr**
+```{r}
+#| eval: true
+map(rasgos, mean, na.rm = TRUE)
+```
+:::
+
+::: {.column width="50%"}
+**R base**
+```{r}
+#| eval: true
+lapply(rasgos, mean, na.rm = TRUE)
+```
+:::
+:::
+
+
+## Ejemplo: `map_dbl()` vs `vapply()`
+
+::: columns
+::: {.column width="50%"}
+**purrr**
+```{r}
+#| eval: true
+map_dbl(rasgos, mean, na.rm = TRUE)
+```
+:::
+
+::: {.column width="50%"}
+**R base**
+```{r}
+#| eval: true
+vapply(rasgos, mean, 
+       FUN.VALUE = numeric(1), 
+       na.rm = TRUE)
+```
+:::
+:::
+
+</br>
+
+Ambas devuelven un **vector numérico** 
+
+# Atajos y herramientas para mayor eficiencia  
+
+##
+
+
+![](imgs/remote-work-airplane-laptop.jpg)
+
+## Programando eficientemente
+
+**En Positron**: habilitar atajos RStudio (settings -> Workbench -> RStudio Keybindings)
+  
+[Ctrl == ⌘ Command && Alt == ⌥ Option]{style="font-size: 1.5em; text-align: center"}
+
+- cursor multilinea (`ctrl`+`alt`+`arriba`) o (`ctrl`+`alt`+`abajo`)
+- quitar con `esc`
+
+## Atajos de teclado
+
+-   panel de atajos (`alt`+`shift`+`k`)
+-   insertar 'pipe' (`ctrl`+`shift`+`m`)
+-   operador de asignación (`alt`+`-`)
+-   arrastrar línea (`alt`+`up`) o (`alt`+`down`)
+
+## 
+
+-   ejecutar línea (`ctrl`+`enter`)
+-   indentar o 'desindentar' selección (`tab` y `shift`+`tab`)
+-   convertir selección a comentario (`ctrl` + `shift` + `c`)
+
+::::{.rightref}
+:::{.refbox}
+[RStudio Shortcuts and Tips (2021)](https://appsilon.com/rstudio-shortcuts-and-tips/)
+:::
+:::
+
+## Atajos útiles
+
+-   Cambiar enfoque entre paneles
+    -   (`ctrl`+`1` hasta `8`)
+    -   Maximizar paneles con (`ctrl`+`shift`+`1` hasta `8`)
+
+![](imgs/movingfocus.gif){width="48%"}
+
+## Más atajos
+
+Modificar selección [`ctrl`+`alt`+`shift`+`m`]{style="color: orange"}
+
+Para acceder a la documentación [?]{style="color: orange"} o [F1]{style="color: orange"}
+
+Abriendo objetos en el visualizador
+
+[`ctrl` + click]{style="color: orange"}
+
+Ejecutar de nuevo la última línea  
+
+[`ctrl` + Alt + P]{style="color: orange"}
+
+### Abrir el directorio de trabajo 
+[`shell.exec(getwd())`]{style="color: orange"} en Windows y en Linux [`browseURL(getwd())`]{style="color: orange"}  
+Atajo de Open Containing Folder en Positron
+
+## En Positron
+
+- Click derecho en archivos o pestañas para copiar rutas absolutas y relativas
+- Paleta de comandos Ctrl + Shift + P
+- Botón Split Editor
+
+# Novedades
+
+## 📦 [`annotater`](https://annotater.liomys.mx)
+
+
+Agregar detalles sobre los paquetes que estamos mencionando en nuestros scripts
+
+Fuente y versión
+
+```{r}
+#| echo: true
+#| eval: false
+
+library(dplyr)   # CRAN v1.0.7
+library(janitor) # CRAN v2.1.0
+```
+
+Título, fuente y versión
+
+```{r}
+#| echo: true
+#| eval: false
+
+library(readr) # Read Rectangular Text Data, CRAN v2.0.2
+```
+
+-   *También podemos anotar cuáles funciones o datos de c/ paquete estamos usando*
+
+## 📦 [`littleboxes`](https://github.com/ThinkR-open/littleboxes)
+
+`remotes::install_github("ThinkR-open/littleboxes")`
+
+Cajas para títulos
+
+```{r}
+#| echo: true
+#| eval: false
+
+##%##################################################%##
+#                                                      #
+####    Mi análisis en R ,  Luis, Oct 2022          ####
+#                                                      #
+##%##################################################%##
+
+```
+
+
+## Secciones de código y el esquema de documento
+
+```{r}
+#| echo: true
+#| eval: false
+
+# Mi sección nueva ------------------------------------ 
+```
+
+Dividir un script en segmentos discretos
+
+Las secciones se pueden colapsar y funcionan con el panel de navegación del editor de fuente.
+
+-   Crear con cuatro guiones después de un comentario
+-   Insertar con `ctrl` + `shift` + `R`
+
+## Utilidades geniales
+
+### 📦 [`datapasta`](https://milesmcbain.github.io/datapasta/)
+
+Copiar y pegar datos desde y hacia R, manipular vectores
+
+![](imgs/tribble_paste.gif){width="48%"}
+
+- en Positron podemos usar Pastum

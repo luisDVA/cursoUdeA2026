@@ -1,0 +1,17 @@
+/*-- scss:defaults --*/
+@import url('https://fonts.googleapis.com/css2?family=Martian+Mono:wght@100..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inclusive+Sans:ital,wght@0,300..700;1,300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
+// fonts
+$font-family-sans-serif: 'Inclusive Sans', 'Sora', Helvetica, sans-serif, 'News Cycle';
+$font-family-monospace: 'Martian Mono', monospace;
+// Universidad de Antioquia institutional palette
+$primary: #026937;
+$link-color: #069a7e;
+$code-color: #069a7e;
+
+/*-- scss:rules --*/
+
+.navbar { 
+  font-family: 'Sora'; 
+  }

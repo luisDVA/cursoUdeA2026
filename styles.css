@@ -1,0 +1,37 @@
+/* css styles */
+/* Universidad de Antioquia institutional palette
+   Principal:   #026937 #35944b #43b649 #8dc63f #3ebdac #069a7e #0e7774
+   Complementaria: #70205b #137598 #ef434d #f9a12c */
+
+:root {
+  --udea-verde-oscuro: #026937;
+  --udea-verde: #35944b;
+  --udea-verde-claro: #43b649;
+  --udea-lima: #8dc63f;
+  --udea-turquesa: #3ebdac;
+  --udea-verde-agua: #069a7e;
+  --udea-verde-petroleo: #0e7774;
+  --udea-magenta: #70205b;
+  --udea-azul: #137598;
+  --udea-rojo: #ef434d;
+  --udea-naranja: #f9a12c;
+}
+
+/* Navbar matches the institutional green */
+.navbar {
+  background-color: var(--udea-verde-oscuro);
+}
+
+.navbar-brand, .navbar-nav .nav-link {
+  color: #ffffff;
+}
+
+/* Footer link accent */
+.page-footer a {
+  color: var(--udea-verde-agua);
+}
+
+/* Callout borders use palette colors */
+.callout {
+  border-left-color: var(--udea-verde);
+}

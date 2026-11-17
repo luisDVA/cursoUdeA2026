@@ -1,0 +1,45 @@
+project:
+  type: website
+  output-dir: docs
+  # solo se renderizan los archivos activos; agregar aquí los que se vuelvan a activar
+  render:
+    - index.qmd
+    - temario.qmd
+    - materiales.qmd
+    - presentaciones/1-flujos_trabajo.qmd
+    - presentaciones/1.01-ejercicios_asteraceae.qmd
+    - presentaciones/2-manipulacion_y_limpieza.qmd
+
+website:
+  title: "Herramientas para el manejo de datos de biodiversidad en R"
+  favicon: maevolab.png
+  
+  navbar:
+    background: "#026937"
+    logo: cursologo.png
+    pinned: true
+    align: center
+    left: 
+      - href: index.qmd
+        text: Inicio
+      - href: temario.qmd
+        text: Temario y cronograma
+      - href: materiales.qmd
+        text: Materiales
+  
+  page-footer:
+    left: "Página creada con [Quarto](https://quarto.org/)."
+    right: "Luis D. Verde Arregoitia - 2026"
+
+
+
+format:
+  html:
+    css: styles.css
+    theme: 
+      light: [yeti, web_styles.scss]
+    toc: true
+    mainfont: "Inclusive Sans"
+    
+execute:
+  freeze: auto

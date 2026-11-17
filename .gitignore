@@ -1,0 +1,23 @@
+.Rproj.user
+.Rhistory
+.Rdata
+.httr-oauth
+.DS_Store
+.quarto
+
+/.quarto/
+
+**/*.quarto_ipynb
+
+# quarto caches y temporales
+**/*_cache/
+presentaciones/temp_hexsession/
+
+# scratch
+*.tmp
+*.bak
+.RData
+
+# datos pesados usados solo localmente para renderizar
+/dados/
+/data/
