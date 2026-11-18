@@ -1,10 +1,10 @@
 #### Miércoles
 # ejercicio 2, personalización
 library(ggplot2)
-library(readr)
+library(here)
 
 # Cargar los datos
-ranas <- read_csv("archivos-ej/ranas.csv")
+ranas <- read.csv(here("archivos-ej","ranas.csv"))
 
 # ranas
 ggplot(ranas,aes(x=svl,y=freq_dom,shape=familia, color=familia))+

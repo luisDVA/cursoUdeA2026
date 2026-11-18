@@ -1,9 +1,13 @@
+library(here)
+
+#### Miércoles
+# ejercicio 5, reordenar
 library(ggplot2)
 library(forcats)
 
 
 # cargar datos
-gateo <- read.csv("archivos-ej/edad_gateo.csv")
+gateo <- read.csv(here("archivos-ej","edad_gateo.csv"))
 gateo
 # barras
 ggplot(gateo,aes(x=mes_nacimiento,y=edad_gateo))+

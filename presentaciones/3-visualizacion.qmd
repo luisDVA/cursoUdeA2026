@@ -570,20 +570,14 @@ Concurso de crear el gráfico más feo posible mediante personalización de colo
 
 # Exportando gráficos
 
-## Opciones 
-
-- Con botón 'Export' de RStudio
-- Con dispositivos gráficos
-- Con `ggsave()`  
-- Formato: png (preferible), jpg, pdf, etc.
-
-## Exportando con dispositivo gráfico
+## `ggsave()`
 
 :::{.callout-note}
 ## 
 Los gráficos se pueden asignar a objetos en el entorno de trabajo
 :::
 
+::: {.big-code}
 ```{r}
 #| echo: true
 #| eval: false
@@ -592,47 +586,6 @@ figura_ranas <-
 ggplot(ranas,
        aes(x=svl,y=freq_dom,fill=svl))+
   geom_point(size=4,color="white",pch=21)
-
-png(filename = "mifigura.png",
-    width = 10, 
-    height = 10,
-    units ="cm",
-    res = 200)
-figura_ranas
-dev.off()
-```
-
-## Dispositivos gráficos de `ragg`
-
-- Más rápidos y mejor resolución
-- Disponibles instalando el paquete `ragg`
-
-::: {.med-code}
-```{r}
-#| echo: true
-#| eval: false
-
-figura_ranas <- 
-ggplot(ranas,aes(x=svl,y=freq_dom,fill=svl))+
-  geom_point(size=4,color="white",pch=21)
-
-agg_png(filename = "mifigura.png",
-    width = 10, height = 10,
-    units ="cm",
-    res = 200)
-figura_ranas
-dev.off()
-```
-:::
-
-## `ggsave()`
-
-- Usa `ragg` si lo encuentra instalado
-
-::: {.big-code}
-```{r}
-#| echo: true
-#| eval: false
 
 ggsave(figura_ranas, 
   filename = "mifigura.png",
@@ -648,7 +601,7 @@ ggsave(figura_ranas,
 
 ![](imgs/exportando.png)
 
-Argumento `scale` en `ggsave()` y `scaling` en dispositivos de `ragg` para ajustar
+Argumento `scale` en `ggsave()` para ajustar
 
 
 ## Figuras multipanel
@@ -1047,38 +1000,6 @@ grasaCarb + wrap_elements(full = ~ {
 })
 ```
 
-------------------------------------------------------------------------
-
-Uniendo una tabla
-
-```{r}
-#| echo: true
-#| output-location: column-fragment
-library(gridExtra)
-
-tabla <- cafeteria |>
-  group_by(tipo) |>
-  summarise(
-    n          = n(),
-    kcal_prom  = round(mean(energia)),
-    grasa_prom = round(mean(grasa), 1),
-    prot_prom  = round(mean(proteina), 1)
-  )
-
-# convertir tabla en un objeto gráfico
-
-tabla_plot <- tableGrob(
-  tabla,
-  rows  = NULL,
-  theme = ttheme_minimal(base_size = 9)
-)
-
-grasaCarb + wrap_elements(full = tabla_plot) +
-  plot_layout(widths = c(1, 1)) +
-  plot_annotation(title = "Titulo del gráfico y tabla")
-
-```
-
 ## Ejercicio {background-color="#6aa3b8"}
 
 Con las figuras puntos_ranas, grasaCarb y protEnergia de los ejercicios anteriores, hacer la siguiente:
@@ -1106,4 +1027,4 @@ plot_annotation(tag_levels = "a") & theme(plot.tag = element_text(face = "bold")
 
 [Galería oficial de extensiones](https://exts.ggplot2.tidyverse.org/)
 
-# Fin día 3
+# Fin

@@ -1,12 +1,12 @@
 library(ggplot2)
-library(readr)
+library(here)
 
 #### Miércoles
 #### Ejercicio 1
 
 
 # Cargar los datos
-ranas <- read_csv("archivos-ej/ranas.csv")
+ranas <- read.csv(here("archivos-ej","ranas.csv"))
 
 # imprimir los datos en pantalla
 ranas
