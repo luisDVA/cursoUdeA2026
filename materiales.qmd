@@ -35,7 +35,13 @@ Estas presentaciones en formato web cuentan con un índice de contenidos interac
 
 ### Jueves
 
-<!--[Lo que Nunca nos Enseñaron sobre R](presentaciones/4-LQNNESR.qmd){.external target="_blank"}-->
+[Creando documentos con Quarto](presentaciones/4-quarto.qmd){.external target="_blank"}
+
+Ejemplos para practicar:
+
+[[Ejemplos de Quarto (archivosquarto.zip)](archivos-ej/archivosquarto.zip)]{style="font-size: 1.3rem; background-color: #3ebdac; padding: 3px; border-radius: 6px;"}
+
+[Lo que Nunca nos Enseñaron sobre R](presentaciones/4-LQNNESR.qmd){.external target="_blank"}
 
 <!--[Creando tablas con gt](presentaciones/4.2-tablas-gt.qmd){.external target="_blank"}-->
 

@@ -10,6 +10,8 @@ project:
     - presentaciones/1.01-ejercicios_asteraceae.qmd
     - presentaciones/2-manipulacion_y_limpieza.qmd
     - presentaciones/3-visualizacion.qmd
+    - presentaciones/4-quarto.qmd
+    - presentaciones/4-LQNNESR.qmd
 
 website:
   title: "Herramientas para el manejo de datos de biodiversidad en R"

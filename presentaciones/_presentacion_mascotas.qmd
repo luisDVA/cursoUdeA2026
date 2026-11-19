@@ -1,0 +1,33 @@
+---
+title: "Mi mascota"
+author: "Tu nombre aquí"
+format: revealjs
+---
+
+# Mi mascota \_\_\_\_\_\_\_
+
+## Una nueva diapositiva
+
+Presenta a tu mascota
+
+### Encabezado
+
+¿perro? ¿gato? ¿otro?
+
+#### Encabezado de nivel 4
+
+## A mi mascota le gusta
+
+::: incremental
+- comer
+- jugar
+- dormir
+:::
+
+## Algo de código
+
+```{r}
+sum(c(10, 20, 12, 3))
+```
+
+# Cambiando de tema {background-color="yellow"}

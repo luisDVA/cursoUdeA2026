@@ -1,5 +1,488 @@
 [
   {
+    "objectID": "presentaciones/4-LQNNESR.html#temas-de-este-bloque",
+    "href": "presentaciones/4-LQNNESR.html#temas-de-este-bloque",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Temas de este bloque:",
+    "text": "Temas de este bloque:\n\nEntornos de trabajo y configuración\n\nIteración y vectorización para evitar repetición\n\nTrabajando con listas\n\nAtajos y herramientas para mayor eficiencia\n\nNovedades"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#personalización",
+    "href": "presentaciones/4-LQNNESR.html#personalización",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Personalización",
+    "text": "Personalización\n\nColores para el IDE - 🔗 rsthemes *fairyfloss\nPositron: Marketplace + Preferences: Color Theme\n\n\n\nNadie nos va a tomar en serio en la cafetería si no programamos con un fondo oscuro\n\n\n-Jared Lander\n📼 R: Then and now\n\n\n\nFuentes y texto - 🔗 Nerd Fonts\nDisposición de los paneles"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#personalización-1",
+    "href": "presentaciones/4-LQNNESR.html#personalización-1",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Personalización",
+    "text": "Personalización\nPositron\n\nMercado OpenVSX (íconos, temas, asistentes, etc.)\nDisposición de elementos flexible\nFuentes (Font Changer)\nPositron: sidebar position, arrastar paneles"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#aplicando-una-función-varias-veces",
+    "href": "presentaciones/4-LQNNESR.html#aplicando-una-función-varias-veces",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Aplicando una función varias veces",
+    "text": "Aplicando una función varias veces\nCopiar/pegar código para editarlo en análisis repetitivos agrega pasos innecesarios, quita tiempo, y aumenta el riesgo de introducir errores\n\n\n\nNick Holt (2017)\nFunction Iterations in R"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#ejercicio---futbol",
+    "href": "presentaciones/4-LQNNESR.html#ejercicio---futbol",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Ejercicio - futbol",
+    "text": "Ejercicio - futbol\nEl archivo tabla_futbol.csv contiene la clasificación en la tabla global de la FIFA de los primeros 20 países de 1994 a 2022 y sus respectivas federaciones.\n\n¿De qué confederación fue el equipo 20 cada año?\nej. para 1994 Zambia fue #20 y su confederación es “CAF”"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#section",
+    "href": "presentaciones/4-LQNNESR.html#section",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "",
+    "text": "Copiando, pegando, y editando\n\nranking1994 &lt;- fifa20esp[fifa20esp$periodo==\"1994-06-14\",]\npais201994 &lt;- ranking1994[ranking1994$posicion==20,]$pais\npais201994\nranking1995 &lt;- fifa20esp[fifa20esp$periodo==\"1995-06-13\",]\npais201995 &lt;- ranking1995[ranking1995$posicion==20,]$pais\npais201995\n\n\nSiguiendo así seguramente introducimos algún error poco evidente y difícil de detectar"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#datos-agrupados",
+    "href": "presentaciones/4-LQNNESR.html#datos-agrupados",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Datos agrupados",
+    "text": "Datos agrupados\nLa mayoría de nuestras tareas se pueden desarrollar siguiendo el paradigma “dividir - aplicar - combinar” ( “split-apply-combine”):\n\ndividir los datos en grupos\naplicar alguna función a cada grupo\ncombinar los resultados\n\n\n\nData Carpentry (2018)\nAggregating and analyzing data with dplyr\nHadley Wickham (2011)\nThe split-apply-combine strategy for data analysis"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#dplyrgroup_by",
+    "href": "presentaciones/4-LQNNESR.html#dplyrgroup_by",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "dplyr::group_by()",
+    "text": "dplyr::group_by()\n\nDefine grupos según una o más variables\n\nEstratifica un data frame\n\nequivalente a aggregate() y al argumento ‘by =’ de data.table\n\n\nManipulación de datos en R con dplyr - Rubén Sánchez"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#trabajando-con-datos-agrupados",
+    "href": "presentaciones/4-LQNNESR.html#trabajando-con-datos-agrupados",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Trabajando con datos agrupados",
+    "text": "Trabajando con datos agrupados\nCon la versión agrupada de nuestra tabla, las funciones de dplyr trabajan sobre cada grupo por separado y después se combinan los resultados.\n\n\n\nRStudio (2021)\nData transformation with dplyr cheatsheet"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#opciones-para-datos-agrupados",
+    "href": "presentaciones/4-LQNNESR.html#opciones-para-datos-agrupados",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Opciones para datos agrupados",
+    "text": "Opciones para datos agrupados\n\nresumir valores (media, mediana, etc. por grupo)\nextraer las primeras o últimas n filas por grupo\nidentificar valores máximos o mínimos\neliminar filas repetidas\ncontar observaciones, etc."
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#datos-áreas-protegidas-de-colombia",
+    "href": "presentaciones/4-LQNNESR.html#datos-áreas-protegidas-de-colombia",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Datos: áreas protegidas de Colombia",
+    "text": "Datos: áreas protegidas de Colombia\nDatos sintéticos de parques nacionales naturales (PNN), su región natural y conteos de especies"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#section-1",
+    "href": "presentaciones/4-LQNNESR.html#section-1",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "",
+    "text": "datoscódigo\n\n\n\n\n\n\n\n\n\n\nparque\nregion\ndepartamento\nextension_km2\naves\nanfibios\n\n\n\n\nTayrona\nCaribe\nMagdalena\n150\n396\n56\n\n\nS.N. Santa Marta\nCaribe\nMagdalena\n3830\n628\n60\n\n\nMacuira\nCaribe\nLa Guajira\n250\n140\n10\n\n\nChingaza\nAndina\nCundinamarca\n766\n397\n40\n\n\nLos Nevados\nAndina\nCaldas\n583\n220\n26\n\n\nSumapaz\nAndina\nCundinamarca\n1540\n279\n30\n\n\nUtría\nPacífica\nChocó\n543\n380\n96\n\n\nGorgona\nPacífica\nCauca\n616\n155\n17\n\n\nAmacayacu\nAmazonía\nAmazonas\n2935\n468\n143\n\n\nChiribiquete\nAmazonía\nCaquetá\n42794\n300\n57\n\n\nEl Tuparro\nOrinoquía\nVichada\n5480\n320\n70\n\n\nLa Macarena\nOrinoquía\nMeta\n6300\n430\n48\n\n\n\n\n\n\n\n\n\n\nareas_protegidas &lt;- tibble::tribble(\n  ~parque,        ~region,     ~departamento, ~extension_km2, ~aves, ~anfibios,\n  \"Tayrona\",      \"Caribe\",    \"Magdalena\",          150,      396,    56,\n  \"S.N. Santa Marta\", \"Caribe\",\"Magdalena\",        3830,      628,    60,\n  \"Macuira\",      \"Caribe\",    \"La Guajira\",         250,      140,    10,\n  \"Chingaza\",     \"Andina\",    \"Cundinamarca\",       766,      397,    40,\n  \"Los Nevados\",  \"Andina\",    \"Caldas\",             583,      220,    26,\n  \"Sumapaz\",      \"Andina\",    \"Cundinamarca\",      1540,      279,    30,\n  \"Utría\",        \"Pacífica\",  \"Chocó\",              543,      380,    96,\n  \"Gorgona\",      \"Pacífica\",  \"Cauca\",              616,      155,    17,\n  \"Amacayacu\",    \"Amazonía\",  \"Amazonas\",          2935,      468,   143,\n  \"Chiribiquete\", \"Amazonía\",  \"Caquetá\",          42794,      300,    57,\n  \"El Tuparro\",   \"Orinoquía\", \"Vichada\",          5480,      320,    70,\n  \"La Macarena\",  \"Orinoquía\", \"Meta\",              6300,      430,    48\n)"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#el-parque-más-extenso-de-cada-región",
+    "href": "presentaciones/4-LQNNESR.html#el-parque-más-extenso-de-cada-región",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "El parque más extenso de cada región",
+    "text": "El parque más extenso de cada región\n\n\nareas_protegidas |&gt; group_by(region) |&gt; \n  slice_max(extension_km2, n = 1)\n\n\n\n# A tibble: 5 × 6\n# Groups:   region [5]\n  parque           region    departamento extension_km2  aves anfibios\n  &lt;chr&gt;            &lt;chr&gt;     &lt;chr&gt;                &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;\n1 Chiribiquete     Amazonía  Caquetá              42794   300       57\n2 Sumapaz          Andina    Cundinamarca          1540   279       30\n3 S.N. Santa Marta Caribe    Magdalena             3830   628       60\n4 La Macarena      Orinoquía Meta                  6300   430       48\n5 Gorgona          Pacífica  Cauca                  616   155       17"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#muestrar-una-fila-al-azar-de-cada-grupo",
+    "href": "presentaciones/4-LQNNESR.html#muestrar-una-fila-al-azar-de-cada-grupo",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Muestrar una fila al azar de cada grupo",
+    "text": "Muestrar una fila al azar de cada grupo\n\n\nareas_protegidas |&gt; group_by(region) |&gt; \n  slice_sample(n = 1)\n\n\n\n# A tibble: 5 × 6\n# Groups:   region [5]\n  parque           region    departamento extension_km2  aves anfibios\n  &lt;chr&gt;            &lt;chr&gt;     &lt;chr&gt;                &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;\n1 Amacayacu        Amazonía  Amazonas              2935   468      143\n2 Los Nevados      Andina    Caldas                 583   220       26\n3 S.N. Santa Marta Caribe    Magdalena             3830   628       60\n4 La Macarena      Orinoquía Meta                  6300   430       48\n5 Gorgona          Pacífica  Cauca                  616   155       17"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#desagrupar",
+    "href": "presentaciones/4-LQNNESR.html#desagrupar",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "“Desagrupar”",
+    "text": "“Desagrupar”\nLas tablas agrupadas por group_by retienen el agrupamiento, y para descartarlo usamos ungroup()\n\nareas_protegidas |&gt; group_by(region) |&gt; \n  slice_sample(n = 1) |&gt; ungroup()\n\n\n\n# A tibble: 5 × 6\n  parque       region    departamento extension_km2  aves anfibios\n  &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;                &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;\n1 Chiribiquete Amazonía  Caquetá              42794   300       57\n2 Los Nevados  Andina    Caldas                 583   220       26\n3 Macuira      Caribe    La Guajira             250   140       10\n4 La Macarena  Orinoquía Meta                  6300   430       48\n5 Gorgona      Pacífica  Cauca                  616   155       17"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#agrupamiento-rápido",
+    "href": "presentaciones/4-LQNNESR.html#agrupamiento-rápido",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Agrupamiento rápido",
+    "text": "Agrupamiento rápido\nEn versiones recientes de dplyr:\n\nAgrupar con .by o by\n\n\nareas_protegidas |&gt; slice_sample(n = 2, by = region) \n\n# A tibble: 10 × 6\n   parque       region    departamento extension_km2  aves anfibios\n   &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;                &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;\n 1 Tayrona      Caribe    Magdalena              150   396       56\n 2 Macuira      Caribe    La Guajira             250   140       10\n 3 Los Nevados  Andina    Caldas                 583   220       26\n 4 Chingaza     Andina    Cundinamarca           766   397       40\n 5 Utría        Pacífica  Chocó                  543   380       96\n 6 Gorgona      Pacífica  Cauca                  616   155       17\n 7 Chiribiquete Amazonía  Caquetá              42794   300       57\n 8 Amacayacu    Amazonía  Amazonas              2935   468      143\n 9 La Macarena  Orinoquía Meta                  6300   430       48\n10 El Tuparro   Orinoquía Vichada               5480   320       70"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#section-2",
+    "href": "presentaciones/4-LQNNESR.html#section-2",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "",
+    "text": "Usando el argumento by ya no se quedan ‘pegados’ los grupos (agrupamiento persistente vs. agrupamiento por operación)\n\n\nA veces usamos .by y a veces by\n\nBlog"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#resumiendo-valores",
+    "href": "presentaciones/4-LQNNESR.html#resumiendo-valores",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Resumiendo valores",
+    "text": "Resumiendo valores\n\n\nareas_protegidas |&gt; group_by(region) |&gt; \n  summarize(mediana_aves = median(aves),\n            media_extension = mean(extension_km2))\n\n\n\n# A tibble: 5 × 3\n  region    mediana_aves media_extension\n  &lt;chr&gt;            &lt;dbl&gt;           &lt;dbl&gt;\n1 Amazonía          384           22864.\n2 Andina            279             963 \n3 Caribe            396            1410 \n4 Orinoquía         375            5890 \n5 Pacífica          268.            580."
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#resumiendo-valores-1",
+    "href": "presentaciones/4-LQNNESR.html#resumiendo-valores-1",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Resumiendo valores",
+    "text": "Resumiendo valores\n\n\nareas_protegidas |&gt;  \n  summarize(mediana_aves = median(aves),\n            media_extension = mean(extension_km2), .by = \"region\")\n\n\n\n# A tibble: 5 × 3\n  region    mediana_aves media_extension\n  &lt;chr&gt;            &lt;dbl&gt;           &lt;dbl&gt;\n1 Caribe            396            1410 \n2 Andina            279             963 \n3 Pacífica          268.            580.\n4 Amazonía          384           22864.\n5 Orinoquía         375            5890"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#ejercicio---futbol-1",
+    "href": "presentaciones/4-LQNNESR.html#ejercicio---futbol-1",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Ejercicio - futbol",
+    "text": "Ejercicio - futbol\nAhora sí, a responder:\n\n¿De qué confederación fue el equipo 20 cada año?\nPuntos totales por año para todos los equipos"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#bucles-for-loops",
+    "href": "presentaciones/4-LQNNESR.html#bucles-for-loops",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Bucles (for loops)",
+    "text": "Bucles (for loops)\n\nDe gran utilidad\nNo siempre es necesario escribirlos de 0\nLlevan &gt;20 años corriendo rápido\n\n\n\n\n\n\n\nJenny Bryan\npurrr tutorial\nData Rectangling\npurrr workshop"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#bucles",
+    "href": "presentaciones/4-LQNNESR.html#bucles",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Bucles",
+    "text": "Bucles\n\n\n\n\nfor (value in sequence){\n   statement(s)\n}\n\n\nEjecuta una serie de enunciados (statements), una vez para cada elemento de un vector o lista. Se detiene al llegar al último elemento.\n\n\n\nfor (x in 1:7){\n  print(x)\n} \n\n[1] 1\n[1] 2\n[1] 3\n[1] 4\n[1] 5\n[1] 6\n[1] 7"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#ejercicio---loops",
+    "href": "presentaciones/4-LQNNESR.html#ejercicio---loops",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Ejercicio - loops",
+    "text": "Ejercicio - loops\nEscribir un bucle para imprimir en la consola cada letra del alfabeto, en minúscula y en orden descendiente (z,y,x,w…) \n\n\n\n\n\n\nNote\n\n\nhay constantes pre-instaladas en R que les pueden servir"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#bucles-y-grupos",
+    "href": "presentaciones/4-LQNNESR.html#bucles-y-grupos",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Bucles y grupos",
+    "text": "Bucles y grupos\n\n\nareas_protegidas |&gt; \n  group_by(region) |&gt; # para cada región\n  slice_sample(1) # declaración a ejecutar \n\n\nTodo se queda dentro del data frame"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#vectorización",
+    "href": "presentaciones/4-LQNNESR.html#vectorización",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Vectorización",
+    "text": "Vectorización\nOperaciones que ocurren en paralelo en todos los elementos (de un vector, lista, etc.) y no uno por uno en cada elemento\n¿Aquí qué pasa?\n\n\nx &lt;- c(1,3,12,4,7,8)\nx &gt; 5"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#los-operadores-lógicos-entre-muchos-otros-son-vectorizados",
+    "href": "presentaciones/4-LQNNESR.html#los-operadores-lógicos-entre-muchos-otros-son-vectorizados",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Los operadores lógicos (entre muchos otros) son vectorizados",
+    "text": "Los operadores lógicos (entre muchos otros) son vectorizados\n\n\nx &lt;- c(1,3,12,4,7,8)\nx &gt; 5\n\n[1] FALSE FALSE  TRUE FALSE  TRUE  TRUE\n\n\n\nNo hace falta teclear todo ésto o escribir un bucle\n\n\nx[1]&gt;5 ; x[2]&gt;5\nx[3]&gt;5 ; x[4]&gt;5\nx[5]&gt;5 ; x[6]&gt;5"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#cuando-sí-necesitemos-iterar",
+    "href": "presentaciones/4-LQNNESR.html#cuando-sí-necesitemos-iterar",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Cuando sí necesitemos iterar:",
+    "text": "Cuando sí necesitemos iterar:\n\n\n\n\n📦 purrr - Herramientas para programación funcional\n\nfunciones map que aplican una función a cada elemento de una lista o vector y devuelve un resultado de la misma longitud que la entrada\ntrabaja bien con listas\ncódigo legible y conciso\n\n\n\n\nThomas Mock (2018)\nFunctional Programming in R with purrr"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#mapeando-funciones-a-datos",
+    "href": "presentaciones/4-LQNNESR.html#mapeando-funciones-a-datos",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "“Mapeando” funciones a datos",
+    "text": "“Mapeando” funciones a datos\n map(.x,.f)\n.f se puede especificar como:\n\nuna función existente\nuna función anónima definida sobre la marcha\nuna fórmula: notación abreviada para funciones\nuna función anónima abreviada (shorthand) en versiones recientes de R"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#funciones",
+    "href": "presentaciones/4-LQNNESR.html#funciones",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Funciones",
+    "text": "Funciones\n\nLearn by Example.com"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#definiendo-funciones",
+    "href": "presentaciones/4-LQNNESR.html#definiendo-funciones",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Definiendo funciones",
+    "text": "Definiendo funciones\nusamos la función ‘function()’\nfunction( arglist ) expr\n\nargumentos (arglist): valores para la función\nexpresión (expr): un objeto que representa una acción que R puede hacer\n\n\n\n\n\n\nNote\n\n\nLas expresiones pueden tener una o más declaraciones"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#definiendo-funciones-1",
+    "href": "presentaciones/4-LQNNESR.html#definiendo-funciones-1",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Definiendo funciones",
+    "text": "Definiendo funciones\n\n\nmi_funcion &lt;- function(mi_argumento){\n  mi_argumento+1 # declaración\n}\n\nmi_vector &lt;- c(3,5,6,7)\n\nmi_funcion(mi_argumento = mi_vector)\n\n[1] 4 6 7 8"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#funciones-anónimas",
+    "href": "presentaciones/4-LQNNESR.html#funciones-anónimas",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Funciones anónimas",
+    "text": "Funciones anónimas\nFunciones para llevar (se crean y se ejecutan pero nunca se asignan a un objeto con nombre)\nSintaxis\n\n\n(function(x) x * x + 3)(10)\n\n[1] 103\n\n\n\nLa definición va entre paréntesis para separar la función de sus argumentos"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#funciones-anónimas-1",
+    "href": "presentaciones/4-LQNNESR.html#funciones-anónimas-1",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Funciones anónimas",
+    "text": "Funciones anónimas\n\nÚtiles para aplicar una función personalizada a varios elementos a la vez\nTambién conocidas como expresiones lambda\nAutocontenidas\nComparables con métodos parecidos en Python"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#por-qué-escribir-nuestras-propias-funciones",
+    "href": "presentaciones/4-LQNNESR.html#por-qué-escribir-nuestras-propias-funciones",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Por qué escribir nuestras propias funciones",
+    "text": "Por qué escribir nuestras propias funciones\n\nMenos repetición\nMayor brevedad\nMenor posibilidad de errores\nAprovechar las herramientas que nos dejan aplicar funciones a muchos elementos a la vez\n\n\n\nJenny Bryan - Stat545\nWrite your own R functions"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#listas-1",
+    "href": "presentaciones/4-LQNNESR.html#listas-1",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Listas",
+    "text": "Listas\nObjetos que pueden contener elementos de diferentes tipos como números, cadenas de texto, vectores, tablas, o incluso más listas\n\n\nmi_lista &lt;- list(\n  un_numero = 7,\n  un_vector = c(\"rata\", \"gato\", \"taco\"),\n  un_dataframe = data.frame(\n    a = 1:3, b = c(\"K\", \"L\", \"M\")))\n\n\n\n\nRebecca Barter (2019)\nLearn to purrr"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#podemos-creas-listas-partiendo-otros-objetos",
+    "href": "presentaciones/4-LQNNESR.html#podemos-creas-listas-partiendo-otros-objetos",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Podemos creas listas partiendo otros objetos",
+    "text": "Podemos creas listas partiendo otros objetos\nSeparando una data frame agrupada en una lista de data frames, una para cada grupo.\n\nregiones &lt;- \n  areas_protegidas |&gt; group_by(region) |&gt;\n  group_split()"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#section-5",
+    "href": "presentaciones/4-LQNNESR.html#section-5",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "",
+    "text": "regiones\n\n&lt;list_of&lt;\n  tbl_df&lt;\n    parque       : character\n    region       : character\n    departamento : character\n    extension_km2: double\n    aves         : double\n    anfibios     : double\n  &gt;\n&gt;[5]&gt;\n[[1]]\n# A tibble: 2 × 6\n  parque       region   departamento extension_km2  aves anfibios\n  &lt;chr&gt;        &lt;chr&gt;    &lt;chr&gt;                &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;\n1 Amacayacu    Amazonía Amazonas              2935   468      143\n2 Chiribiquete Amazonía Caquetá              42794   300       57\n\n[[2]]\n# A tibble: 3 × 6\n  parque      region departamento extension_km2  aves anfibios\n  &lt;chr&gt;       &lt;chr&gt;  &lt;chr&gt;                &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;\n1 Chingaza    Andina Cundinamarca           766   397       40\n2 Los Nevados Andina Caldas                 583   220       26\n3 Sumapaz     Andina Cundinamarca          1540   279       30\n\n[[3]]\n# A tibble: 3 × 6\n  parque           region departamento extension_km2  aves anfibios\n  &lt;chr&gt;            &lt;chr&gt;  &lt;chr&gt;                &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;\n1 Tayrona          Caribe Magdalena              150   396       56\n2 S.N. Santa Marta Caribe Magdalena             3830   628       60\n3 Macuira          Caribe La Guajira             250   140       10\n\n[[4]]\n# A tibble: 2 × 6\n  parque      region    departamento extension_km2  aves anfibios\n  &lt;chr&gt;       &lt;chr&gt;     &lt;chr&gt;                &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;\n1 El Tuparro  Orinoquía Vichada               5480   320       70\n2 La Macarena Orinoquía Meta                  6300   430       48\n\n[[5]]\n# A tibble: 2 × 6\n  parque  region   departamento extension_km2  aves anfibios\n  &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;                &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt;\n1 Utría   Pacífica Chocó                  543   380       96\n2 Gorgona Pacífica Cauca                  616   155       17"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#section-6",
+    "href": "presentaciones/4-LQNNESR.html#section-6",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "",
+    "text": "class(regiones)\n\n[1] \"vctrs_list_of\" \"vctrs_vctr\"    \"list\""
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#section-7",
+    "href": "presentaciones/4-LQNNESR.html#section-7",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "",
+    "text": "group_keys() muestra los grupos\n\n\nareas_protegidas |&gt; group_by(region) |&gt;\n  group_keys()\n\n# A tibble: 5 × 1\n  region   \n  &lt;chr&gt;    \n1 Amazonía \n2 Andina   \n3 Caribe   \n4 Orinoquía\n5 Pacífica"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#indexando-listas",
+    "href": "presentaciones/4-LQNNESR.html#indexando-listas",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "‘Indexando’ listas",
+    "text": "‘Indexando’ listas\n\nHadley Wickam (2015) en Twitter"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#accediendo-a-elementos-de-listas",
+    "href": "presentaciones/4-LQNNESR.html#accediendo-a-elementos-de-listas",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Accediendo a elementos de listas",
+    "text": "Accediendo a elementos de listas\nPrimer elemento ([[1]])\n\nregiones[[1]] |&gt; \n  select(parque, departamento)\n\n# A tibble: 2 × 2\n  parque       departamento\n  &lt;chr&gt;        &lt;chr&gt;       \n1 Amacayacu    Amazonas    \n2 Chiribiquete Caquetá"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#segundo-elemento",
+    "href": "presentaciones/4-LQNNESR.html#segundo-elemento",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Segundo elemento",
+    "text": "Segundo elemento\n\nregiones[[2]] |&gt; \n  select(parque, extension_km2, aves)\n\n# A tibble: 3 × 3\n  parque      extension_km2  aves\n  &lt;chr&gt;               &lt;dbl&gt; &lt;dbl&gt;\n1 Chingaza              766   397\n2 Los Nevados           583   220\n3 Sumapaz              1540   279"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#section-8",
+    "href": "presentaciones/4-LQNNESR.html#section-8",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "",
+    "text": "Luis (2017)\nExport Iteratively"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#para-qué-usar-listas",
+    "href": "presentaciones/4-LQNNESR.html#para-qué-usar-listas",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "¿Para qué usar listas?",
+    "text": "¿Para qué usar listas?\n\nClase versátil para almacenar varios tipos de objetos\nFáciles de crear partiendo otros objetos\nCada elemento puede tener nombre"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#mapeo-de-funciones-a-datos",
+    "href": "presentaciones/4-LQNNESR.html#mapeo-de-funciones-a-datos",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "‘Mapeo’ de funciones a datos",
+    "text": "‘Mapeo’ de funciones a datos\n\nAplicar funciones iterativamente\nImportar varios archivos en un solo comando\nModificar y/o exportar múltiples objetos"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#aplicar-funciones-iterativamente",
+    "href": "presentaciones/4-LQNNESR.html#aplicar-funciones-iterativamente",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Aplicar funciones iterativamente",
+    "text": "Aplicar funciones iterativamente\n\nlibrary(datos)\nlibrary(purrr)\n# tres vectores (numéricos)\nmasa &lt;- pinguinos$masa_corporal_g\npico &lt;- pinguinos$largo_pico_mm\naleta &lt;- pinguinos$largo_aleta_mm\n# juntarlos en una lista\nrasgos &lt;- list(masa,pico,aleta)\n# aplicar la función \"mean\" a cada elemento\nmap(rasgos,mean)\n\n[[1]]\n[1] NA\n\n[[2]]\n[1] NA\n\n[[3]]\n[1] NA"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#section-9",
+    "href": "presentaciones/4-LQNNESR.html#section-9",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "",
+    "text": "con argumentos adicionales\n\n# aplicar la función \"mean\" a cada elemento\nmap(rasgos,mean,na.rm=TRUE)\n\n[[1]]\n[1] 4201.754\n\n[[2]]\n[1] 43.92193\n\n[[3]]\n[1] 200.9152"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#aplicar-funciones-personalizadas-iterativamente",
+    "href": "presentaciones/4-LQNNESR.html#aplicar-funciones-personalizadas-iterativamente",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Aplicar funciones personalizadas iterativamente",
+    "text": "Aplicar funciones personalizadas iterativamente\n\n\n# obtener min, max, y la diferencia\nresumenMMR &lt;- function(x){\n  min_x &lt;- min(x,na.rm = TRUE)\n  max_x &lt;- max(x,na.rm = TRUE)\n  maxmin &lt;- max_x - min_x\n  c(min_x, max_x, maxmin)\n}"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#probar-con-vectores",
+    "href": "presentaciones/4-LQNNESR.html#probar-con-vectores",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Probar con vectores",
+    "text": "Probar con vectores\n\n\nresumenMMR(masa)\n\n[1] 2700 6300 3600\n\nresumenMMR(aleta)\n\n[1] 172 231  59"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#map-para-aplicar-nuestra-función-a-la-lista",
+    "href": "presentaciones/4-LQNNESR.html#map-para-aplicar-nuestra-función-a-la-lista",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "map() para aplicar nuestra función a la lista",
+    "text": "map() para aplicar nuestra función a la lista\n\n\n\n\n\n\nNote\n\n\nSolo usamos el nombre de la función\n\n\n\n\n\nmap(.x = rasgos, .f = resumenMMR)\n\n[[1]]\n[1] 2700 6300 3600\n\n[[2]]\n[1] 32.1 59.6 27.5\n\n[[3]]\n[1] 172 231  59"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#map-con-funciones-anónimas",
+    "href": "presentaciones/4-LQNNESR.html#map-con-funciones-anónimas",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "map() con funciones anónimas",
+    "text": "map() con funciones anónimas\nFunciones que podemos escribir dentro de map() sin definir\n\n\nMike Cheng (2019)\nAnonymous Functions in R - Part 1"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#section-11",
+    "href": "presentaciones/4-LQNNESR.html#section-11",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "",
+    "text": "Mismo comportamiento\n\n\nlistaNums &lt;- list(c(5:10),c(20:27))\n# función anónima\nmap(listaNums, function(x) x+2)\n# notación 'nueva'\nmap(listaNums,\\(x) x+2)"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#importando-o-escribiendo-muchos-archivos",
+    "href": "presentaciones/4-LQNNESR.html#importando-o-escribiendo-muchos-archivos",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Importando o escribiendo muchos archivos",
+    "text": "Importando o escribiendo muchos archivos\nmap(.x,.f)\n.x puede ser una lista o vector de rutas de archivo\n.f puede ser una función que lee o escribe archivos\n\n📄📄📄📄📄📄📄📄📄"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#ejercicio",
+    "href": "presentaciones/4-LQNNESR.html#ejercicio",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Ejercicio",
+    "text": "Ejercicio\nCrear una carpeta llena de archivos de texto\n\ncargar el archivo resultados_21k.csv\nagrupar los datos por localidad y crear una lista de data frames con una para cada localidad\ncrear un vector con los nombres de las localidades\n\n\n\n\n\n\n\nNote\n\n\n😲 es posible iterar con dos inputs en paralelo"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#map-con-dos-inputs",
+    "href": "presentaciones/4-LQNNESR.html#map-con-dos-inputs",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "map() con dos inputs",
+    "text": "map() con dos inputs\nmap2(.x, .y, .f)\nAmbas listas de vectores de entrada se le pasan como argumentos a la función .f\n\n\n\nAltman et al. (2021)\nMap with multiple inputs"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#ejercicio---carpeta-con-archivos",
+    "href": "presentaciones/4-LQNNESR.html#ejercicio---carpeta-con-archivos",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Ejercicio - Carpeta con archivos",
+    "text": "Ejercicio - Carpeta con archivos\n\ncrear una carpeta “resultados21k”\nusar here() para crear rutas estables y portátiles para cada localidad, por ejemplo: here(\"datos\",\"resultados21k\",\"Usaquen\"), teniendo en cuenta que here() es una función vectorizada\npasar la lista de data frames y el vector de rutas a write_csv de readr o write.csv de R base\n\n🔥🏃🔥"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#ejercicio---importando-varios-archivos-a-la-vez",
+    "href": "presentaciones/4-LQNNESR.html#ejercicio---importando-varios-archivos-a-la-vez",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Ejercicio - Importando varios archivos a la vez",
+    "text": "Ejercicio - Importando varios archivos a la vez\n\nusar dir_ls() para crear un vector con las rutas de los archivos creados en el paso anterior\nimportar cada elemento de este vector con map() y read_csv() de readr\nusar funciones con regresos específicos para terminar con la tabla inicial"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#map-de-alto-rendimiento",
+    "href": "presentaciones/4-LQNNESR.html#map-de-alto-rendimiento",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "map de alto rendimiento",
+    "text": "map de alto rendimiento\n\n\n\n\n📦 mirai - Minimalist Async Evaluation Framework for R\n\nSe encarga de todo para paralelizar funciones map\nDe los núcleos de nuestra PC hasta SSH, Slurm, Torque, LSF"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#con-r-base",
+    "href": "presentaciones/4-LQNNESR.html#con-r-base",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Con R base",
+    "text": "Con R base\nR base tiene herramientas para iterar desde sus inicios: la familia apply\n\n\n\npurrr\nR Base\n\n\n\n\nmap()\nlapply()\n\n\nmap2(), pmap()\nmapply()"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#familia-apply",
+    "href": "presentaciones/4-LQNNESR.html#familia-apply",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Familia apply",
+    "text": "Familia apply\n\nlapply(): (List apply) Aplica una función a cada elemento de una lista o vector y siempre devuelve una lista.\nsapply(): (Simplified apply) Intenta simplificar el resultado de lapply(). Si puede, devuelve un vector o matriz; si no, una lista.\ntapply(): (Table apply) Aplica una función a subconjuntos de un vector definidos por uno o más factores (agrupamientos)."
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#por-qué-purrr",
+    "href": "presentaciones/4-LQNNESR.html#por-qué-purrr",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "¿Por qué purrr?",
+    "text": "¿Por qué purrr?\n\nConsistencia en argumentos: En purrr, el objeto a iterar (.x) siempre es el primer argumento. En R base varía.\nType-safety: sapply() puede devolver una lista, un vector o una matriz según el resultado.\nSintaxis: Soporte para funciones anónimas\nIntegración: Funciona con el pipe (|&gt;) y otras herramientas del tidyverse."
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#ejemplo-map-vs-lapply",
+    "href": "presentaciones/4-LQNNESR.html#ejemplo-map-vs-lapply",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Ejemplo: map() vs lapply()",
+    "text": "Ejemplo: map() vs lapply()\n\n\npurrr\n\nmap(rasgos, mean, na.rm = TRUE)\n\n[[1]]\n[1] 4201.754\n\n[[2]]\n[1] 43.92193\n\n[[3]]\n[1] 200.9152\n\n\n\nR base\n\nlapply(rasgos, mean, na.rm = TRUE)\n\n[[1]]\n[1] 4201.754\n\n[[2]]\n[1] 43.92193\n\n[[3]]\n[1] 200.9152"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#programando-eficientemente",
+    "href": "presentaciones/4-LQNNESR.html#programando-eficientemente",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Programando eficientemente",
+    "text": "Programando eficientemente\nEn Positron: habilitar atajos RStudio (settings -&gt; Workbench -&gt; RStudio Keybindings)\nCtrl == ⌘ Command && Alt == ⌥ Option\n\ncursor multilinea (ctrl+alt+arriba) o (ctrl+alt+abajo)\nquitar con esc"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#atajos-de-teclado",
+    "href": "presentaciones/4-LQNNESR.html#atajos-de-teclado",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Atajos de teclado",
+    "text": "Atajos de teclado\n\npanel de atajos (alt+shift+k)\ninsertar ‘pipe’ (ctrl+shift+m)\noperador de asignación (alt+-)\narrastrar línea (alt+up) o (alt+down)"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#section-14",
+    "href": "presentaciones/4-LQNNESR.html#section-14",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "",
+    "text": "ejecutar línea (ctrl+enter)\nindentar o ‘desindentar’ selección (tab y shift+tab)\nconvertir selección a comentario (ctrl + shift + c)\n\n\n\nRStudio Shortcuts and Tips (2021)"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#atajos-útiles",
+    "href": "presentaciones/4-LQNNESR.html#atajos-útiles",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Atajos útiles",
+    "text": "Atajos útiles\n\nCambiar enfoque entre paneles\n\n(ctrl+1 hasta 8)\nMaximizar paneles con (ctrl+shift+1 hasta 8)"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#más-atajos",
+    "href": "presentaciones/4-LQNNESR.html#más-atajos",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Más atajos",
+    "text": "Más atajos\nModificar selección ctrl+alt+shift+m\nPara acceder a la documentación ? o F1\nAbriendo objetos en el visualizador\nctrl + click\nEjecutar de nuevo la última línea\nctrl + Alt + P\nAbrir el directorio de trabajo\nshell.exec(getwd()) en Windows y en Linux browseURL(getwd())\nAtajo de Open Containing Folder en Positron"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#en-positron",
+    "href": "presentaciones/4-LQNNESR.html#en-positron",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "En Positron",
+    "text": "En Positron\n\nClick derecho en archivos o pestañas para copiar rutas absolutas y relativas\nPaleta de comandos Ctrl + Shift + P\nBotón Split Editor"
+  },
+  {
+    "objectID": "presentaciones/4-LQNNESR.html#secciones-de-código-y-el-esquema-de-documento",
+    "href": "presentaciones/4-LQNNESR.html#secciones-de-código-y-el-esquema-de-documento",
+    "title": "Lo que nadie nos enseñó sobre R",
+    "section": "Secciones de código y el esquema de documento",
+    "text": "Secciones de código y el esquema de documento\n\n# Mi sección nueva ------------------------------------ \n\nDividir un script en segmentos discretos\nLas secciones se pueden colapsar y funcionan con el panel de navegación del editor de fuente.\n\nCrear con cuatro guiones después de un comentario\nInsertar con ctrl + shift + R"
+  },
+  {
     "objectID": "presentaciones/3-visualizacion.html#temas-de-este-bloque",
     "href": "presentaciones/3-visualizacion.html#temas-de-este-bloque",
     "title": "Visualización de datos",
@@ -180,27 +663,6 @@
     "title": "Visualización de datos",
     "section": "Ejercicio",
     "text": "Ejercicio\nCon cualquier figura de los ejercicios anteriores:\n\nConcurso de crear el gráfico más feo posible mediante personalización de colores, tamaños, fuentes, etc. (SIN PERDER LA REPRESENTACIÓN VISUAL DE LOS DATOS)"
-  },
-  {
-    "objectID": "presentaciones/3-visualizacion.html#opciones",
-    "href": "presentaciones/3-visualizacion.html#opciones",
-    "title": "Visualización de datos",
-    "section": "Opciones",
-    "text": "Opciones\n\nCon botón ‘Export’ de RStudio\nCon dispositivos gráficos\nCon ggsave()\n\nFormato: png (preferible), jpg, pdf, etc."
-  },
-  {
-    "objectID": "presentaciones/3-visualizacion.html#exportando-con-dispositivo-gráfico",
-    "href": "presentaciones/3-visualizacion.html#exportando-con-dispositivo-gráfico",
-    "title": "Visualización de datos",
-    "section": "Exportando con dispositivo gráfico",
-    "text": "Exportando con dispositivo gráfico\n\n\n\n\n\n\nNote\n\n\nLos gráficos se pueden asignar a objetos en el entorno de trabajo\n\n\n\n\nfigura_ranas &lt;- \nggplot(ranas,\n       aes(x=svl,y=freq_dom,fill=svl))+\n  geom_point(size=4,color=\"white\",pch=21)\n\npng(filename = \"mifigura.png\",\n    width = 10, \n    height = 10,\n    units =\"cm\",\n    res = 200)\nfigura_ranas\ndev.off()"
-  },
-  {
-    "objectID": "presentaciones/3-visualizacion.html#dispositivos-gráficos-de-ragg",
-    "href": "presentaciones/3-visualizacion.html#dispositivos-gráficos-de-ragg",
-    "title": "Visualización de datos",
-    "section": "Dispositivos gráficos de ragg",
-    "text": "Dispositivos gráficos de ragg\n\nMás rápidos y mejor resolución\nDisponibles instalando el paquete ragg\n\n\n\nfigura_ranas &lt;- \nggplot(ranas,aes(x=svl,y=freq_dom,fill=svl))+\n  geom_point(size=4,color=\"white\",pch=21)\n\nagg_png(filename = \"mifigura.png\",\n    width = 10, height = 10,\n    units =\"cm\",\n    res = 200)\nfigura_ranas\ndev.off()"
   },
   {
     "objectID": "presentaciones/3-visualizacion.html#ggsave",
@@ -522,7 +984,7 @@
     "href": "materiales.html#presentaciones",
     "title": "Materiales del curso",
     "section": "Presentaciones",
-    "text": "Presentaciones\nEstas presentaciones en formato web cuentan con un índice de contenidos interactivo (botón en la esquina inferior izquierda).\n\nMartes\nFlujos de Trabajo y Organización de Proyectos\nEjercicio de arranque\n\nManipulación y Limpieza de datos\n\n\n\n\nMiércoles\nVisualización de Datos\n\n\nJueves\n\n\n\n\n\n\n\n\nViernes"
+    "text": "Presentaciones\nEstas presentaciones en formato web cuentan con un índice de contenidos interactivo (botón en la esquina inferior izquierda).\n\nMartes\nFlujos de Trabajo y Organización de Proyectos\nEjercicio de arranque\n\nManipulación y Limpieza de datos\n\n\n\n\nMiércoles\nVisualización de Datos\n\n\nJueves\nCreando documentos con Quarto\nEjemplos para practicar:\nEjemplos de Quarto (archivosquarto.zip)\nLo que Nunca nos Enseñaron sobre R\n\n\n\n\n\n\n\nViernes"
   },
   {
     "objectID": "index.html",
@@ -1692,5 +2154,166 @@
     "title": "Preparación y limpieza de datos",
     "section": "Ejercicio",
     "text": "Ejercicio\n\nCargar el archivo murcielagos.csv\n¿De cuántas localidades únicas provienen estos registros?\nExportar un archivo con las localidades únicas y nombres de columna en español\n\n💡 Pista: write_csv() de 📦 readr escribe en la carpeta de trabajo por defecto — con here() pueden controlar la ruta, y write_excel_csv() si lo quieren abrir en Excel"
+  },
+  {
+    "objectID": "presentaciones/4-quarto.html#section",
+    "href": "presentaciones/4-quarto.html#section",
+    "title": "Creando documentos con Quarto",
+    "section": "",
+    "text": "Combinando texto, código y mucho más\n  R 🔁 Word ➡️ Salida a PDF, HTML, etc.\n R ➡️ Salida a PDF, HTML, etc"
+  },
+  {
+    "objectID": "presentaciones/4-quarto.html#markdown",
+    "href": "presentaciones/4-quarto.html#markdown",
+    "title": "Creando documentos con Quarto",
+    "section": "Markdown ",
+    "text": "Markdown \n\nHerramientas y lenguaje para dar formato a documentos sencillos\nLegible y liviano\nPortabilidad y conveniencia"
+  },
+  {
+    "objectID": "presentaciones/4-quarto.html#rmarkdown",
+    "href": "presentaciones/4-quarto.html#rmarkdown",
+    "title": "Creando documentos con Quarto",
+    "section": "¿Rmarkdown?",
+    "text": "¿Rmarkdown?\n\n\n\nFormato de archivo y ecosistema de paquetes para combinar texto con formato  markdown y código de R\nCompatible con HTML\nProduce un archivo .md intermedio que se puede procesar para generar múltiples formatos de salida (PDF, HTML, Word, etc.)"
+  },
+  {
+    "objectID": "presentaciones/4-quarto.html#quarto",
+    "href": "presentaciones/4-quarto.html#quarto",
+    "title": "Creando documentos con Quarto",
+    "section": "Quarto",
+    "text": "Quarto\n\n\n\n\n\nSistema de publicación técnica y científica de código abierto\nLa nueva generación de RMarkdown\nMulti-lenguaje\nMulti-formato\nBien documentado"
+  },
+  {
+    "objectID": "presentaciones/4-quarto.html#section-1",
+    "href": "presentaciones/4-quarto.html#section-1",
+    "title": "Creando documentos con Quarto",
+    "section": "",
+    "text": "rmarkdown\n\n\n\n\n\nQuarto"
+  },
+  {
+    "objectID": "presentaciones/4-quarto.html#lo-que-ves-es-lo-que-hay-wysiwyg",
+    "href": "presentaciones/4-quarto.html#lo-que-ves-es-lo-que-hay-wysiwyg",
+    "title": "Creando documentos con Quarto",
+    "section": "Lo que ves es lo que hay (WYSIWYG)",
+    "text": "Lo que ves es lo que hay (WYSIWYG)"
+  },
+  {
+    "objectID": "presentaciones/4-quarto.html#fuente-y-salida-por-separado",
+    "href": "presentaciones/4-quarto.html#fuente-y-salida-por-separado",
+    "title": "Creando documentos con Quarto",
+    "section": "Fuente y salida por separado",
+    "text": "Fuente y salida por separado\n\n\n---\ntitle: \"Demostración de geom_point\"\nauthor: \"Luis\"\nformat: \n  html:\n  theme: pulse\nhighlight-style: breeze  \n---\n\n## Gráfico de dispersión con `geom_point`\nAleta vs. masa corporal\n``` {{r}}\n#| warning: false \nlibrary(palmerpenguins)\nlibrary(ggplot2)\nggplot(penguins,aes(flipper_length_mm,body_mass_g))+geom_point()\n```"
+  },
+  {
+    "objectID": "presentaciones/4-quarto.html#documentos-dinámicos",
+    "href": "presentaciones/4-quarto.html#documentos-dinámicos",
+    "title": "Creando documentos con Quarto",
+    "section": "Documentos dinámicos",
+    "text": "Documentos dinámicos\nCombina texto, código, resultados de código, imágenes y resultados\n\nDouglas et al. (2022) - An Introduction to R"
+  },
+  {
+    "objectID": "presentaciones/4-quarto.html#formatos-de-salida",
+    "href": "presentaciones/4-quarto.html#formatos-de-salida",
+    "title": "Creando documentos con Quarto",
+    "section": "Formatos de salida",
+    "text": "Formatos de salida\n\n\n      \n\n\n\nBlogs\nPDF\nInformes\nManuscritos\n\n\nPresentaciones\nLibros\nCursos\nNotebooks"
+  },
+  {
+    "objectID": "presentaciones/4-quarto.html#tengo-quarto",
+    "href": "presentaciones/4-quarto.html#tengo-quarto",
+    "title": "Creando documentos con Quarto",
+    "section": "¿Tengo Quarto?",
+    "text": "¿Tengo Quarto?\n\nInstalado automáticamente con RStudio desde la versión v2022.07\nInstalar desde la página oficial de descarga\n\nLa versión actual es: v1.11.9\nquarto --version en la terminal para verificar la versión instalada"
+  },
+  {
+    "objectID": "presentaciones/4-quarto.html#dando-formato-al-texto",
+    "href": "presentaciones/4-quarto.html#dando-formato-al-texto",
+    "title": "Creando documentos con Quarto",
+    "section": "Dando formato al texto",
+    "text": "Dando formato al texto\nCiertos caracteres toman significados especiales en , así que los usamos para definir el formato\n\n\n*cursiva* y **negrita**\nsuperíndice^2^\nsubíndice~2~\n~~tachado~~\n`código`\n\ncursiva y negrita\nsuperíndice2\nsubíndice2\ntachado\ncódigo"
+  },
+  {
+    "objectID": "presentaciones/4-quarto.html#encabezados",
+    "href": "presentaciones/4-quarto.html#encabezados",
+    "title": "Creando documentos con Quarto",
+    "section": "Encabezados",
+    "text": "Encabezados\nDefinen secciones y subsecciones, y se procesan para crear tablas de contenido\n\n\n\n\n\n\n\nMarkdown\nResultado\n\n\n\n\n # Nivel 1\nNivel 1\n\n\n## Nivel 2\nNivel 2\n\n\n### Nivel 3\nNivel 3\n\n\n#### Nivel 4\nNivel 4"
+  },
+  {
+    "objectID": "presentaciones/4-quarto.html#imágenes",
+    "href": "presentaciones/4-quarto.html#imágenes",
+    "title": "Creando documentos con Quarto",
+    "section": "Imágenes",
+    "text": "Imágenes\nAgregar desde una ruta local o desde la web\n![](imgs/Mila.jpeg)"
+  },
+  {
+    "objectID": "presentaciones/4-quarto.html#código",
+    "href": "presentaciones/4-quarto.html#código",
+    "title": "Creando documentos con Quarto",
+    "section": "Código",
+    "text": "Código\nBloques de código (chunks)\nInsertar con ctrl + shift + I o el botón del IDE\nEl contenido del bloque se ejecuta\n\n```{r}\nsqrt(64)\nlog(1000)\n25*12\n```\n\n[1] 8\n[1] 6.907755\n[1] 300"
+  },
+  {
+    "objectID": "presentaciones/4-quarto.html#section-2",
+    "href": "presentaciones/4-quarto.html#section-2",
+    "title": "Creando documentos con Quarto",
+    "section": "",
+    "text": "El resultado de la ejecución del código aparece en la salida\n\nPodemos controlar si el código se muestra, se ejecuta o se oculta, así como qué hacer con los errores o advertencias."
+  },
+  {
+    "objectID": "presentaciones/4-quarto.html#preámbulo-yaml",
+    "href": "presentaciones/4-quarto.html#preámbulo-yaml",
+    "title": "Creando documentos con Quarto",
+    "section": "Preámbulo YAML",
+    "text": "Preámbulo YAML\nContiene los metadatos del documento para especificar:\n\nOpciones visuales que se aplican en todo el documento\nInformación de autor y fecha\nFormato de salida\n--- antes y después del preámbulo"
+  },
+  {
+    "objectID": "presentaciones/4-quarto.html#ejemplo-1-reporte-de-zarigüeyas",
+    "href": "presentaciones/4-quarto.html#ejemplo-1-reporte-de-zarigüeyas",
+    "title": "Creando documentos con Quarto",
+    "section": "Ejemplo 1: Reporte de zarigüeyas",
+    "text": "Ejemplo 1: Reporte de zarigüeyas\n\ncambiar el tema (theme)\ncambiar el resaltado de código (highlight style)\nocultar o mostrar código (code-fold, code-tools, code-summary)"
+  },
+  {
+    "objectID": "presentaciones/4-quarto.html#ejemplo-1-solución",
+    "href": "presentaciones/4-quarto.html#ejemplo-1-solución",
+    "title": "Creando documentos con Quarto",
+    "section": "Ejemplo 1: solución",
+    "text": "Ejemplo 1: solución\n---\ntitle: \"Reporte de mediciones de zarigüeyas\"\nauthor: \"Tu nombre aquí\"\nformat:\n  html:\n    theme: pulse\n    code-fold: true\n    code-tools: true\n    code-summary: \"Mostrar el código\"\nhighlight-style: breeze\n---"
+  },
+  {
+    "objectID": "presentaciones/4-quarto.html#presentaciones",
+    "href": "presentaciones/4-quarto.html#presentaciones",
+    "title": "Creando documentos con Quarto",
+    "section": "Presentaciones",
+    "text": "Presentaciones\nQuarto usa el framework reveal.js para crear presentaciones HTML\n\nIncluye herramientas para el presentador\nNuevas diapositivas delimitadas con --- o creadas con encabezados de nivel dos (##)"
+  },
+  {
+    "objectID": "presentaciones/4-quarto.html#ejemplo-2-presentación-sobre-mascotas",
+    "href": "presentaciones/4-quarto.html#ejemplo-2-presentación-sobre-mascotas",
+    "title": "Creando documentos con Quarto",
+    "section": "Ejemplo 2: Presentación sobre mascotas",
+    "text": "Ejemplo 2: Presentación sobre mascotas\n\nAparición gradual de listas y viñetas\nCambiar el fondo de diapositivas {background-color}\nExportar a PDF (la tecla E activa la vista previa de impresión)\nF para pantalla completa"
+  },
+  {
+    "objectID": "presentaciones/4-quarto.html#ejemplo-2-solución",
+    "href": "presentaciones/4-quarto.html#ejemplo-2-solución",
+    "title": "Creando documentos con Quarto",
+    "section": "Ejemplo 2: solución",
+    "text": "Ejemplo 2: solución\n---\ntitle: \"Mi mascota\"\nauthor: \"Tu nombre aquí\"\nformat:\n  revealjs:\n    transition: fade\n---\n## A mi mascota le gusta\n\n::: incremental\n- comer\n- jugar\n- dormir\n:::\n\n# Cambiando de tema {background-color=\"yellow\"}"
+  },
+  {
+    "objectID": "presentaciones/4-quarto.html#compartiendo-documentos-quarto",
+    "href": "presentaciones/4-quarto.html#compartiendo-documentos-quarto",
+    "title": "Creando documentos con Quarto",
+    "section": "Compartiendo documentos Quarto",
+    "text": "Compartiendo documentos Quarto\nRenderizar y compartir\n\ncomo HTML (embed-resources), PDF, PPT, etc.\n\nPublicar en Posit Connect\nGratis para documentos no muy pesados\nPublicar en GitHub Pages, Netlify, etc."
+  },
+  {
+    "objectID": "presentaciones/4-quarto.html#lecturas-útiles",
+    "href": "presentaciones/4-quarto.html#lecturas-útiles",
+    "title": "Creando documentos con Quarto",
+    "section": "Lecturas útiles",
+    "text": "Lecturas útiles\n📃 Meghan Hall - Making Slides in Quarto with reveal.js\n📒 Thomas Mock - Getting Started with Quarto"
   }
 ]

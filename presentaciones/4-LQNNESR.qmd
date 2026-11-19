@@ -37,6 +37,22 @@ execute:
 library(dplyr)
 library(gt)
 library(ggplot2)
+
+areas_protegidas <- tibble::tribble(
+  ~parque,        ~region,     ~departamento, ~extension_km2, ~aves, ~anfibios,
+  "Tayrona",      "Caribe",    "Magdalena",          150,      396,    56,
+  "S.N. Santa Marta", "Caribe","Magdalena",        3830,      628,    60,
+  "Macuira",      "Caribe",    "La Guajira",         250,      140,    10,
+  "Chingaza",     "Andina",    "Cundinamarca",       766,      397,    40,
+  "Los Nevados",  "Andina",    "Caldas",             583,      220,    26,
+  "Sumapaz",      "Andina",    "Cundinamarca",      1540,      279,    30,
+  "Utría",        "Pacífica",  "Chocó",              543,      380,    96,
+  "Gorgona",      "Pacífica",  "Cauca",              616,      155,    17,
+  "Amacayacu",    "Amazonía",  "Amazonas",          2935,      468,   143,
+  "Chiribiquete", "Amazonía",  "Caquetá",          42794,      300,    57,
+  "El Tuparro",   "Orinoquía", "Vichada",          5480,      320,    70,
+  "La Macarena",  "Orinoquía", "Meta",              6300,      430,    48
+)
 ```
 
 
@@ -44,7 +60,10 @@ library(ggplot2)
 
 ## Personalización
 
--   Colores para el IDE - 🔗 [rsthemes](https://www.garrickadenbuie.com/project/rsthemes/) por Garrick Aden-Buie 
+-   Colores para el IDE - 🔗 [rsthemes](https://www.garrickadenbuie.com/project/rsthemes/) *fairyfloss
+
+
+- Positron: Marketplace + Preferences: Color Theme
 
 ::: {style="background-color: #0e7774; box-shadow: 10px 10px grey;  padding: 25px"}
 
@@ -69,6 +88,7 @@ library(ggplot2)
 - Mercado OpenVSX (íconos, temas, asistentes, etc.)
 - Disposición de elementos flexible
 - Fuentes (Font Changer)
+- Positron: sidebar position, arrastar paneles
 
 # Iteración 
 
@@ -163,22 +183,53 @@ RStudio (2021)\
 - eliminar filas repetidas
 - contar observaciones, etc.
 
-## Datos `msleep`
+## Datos: áreas protegidas de Colombia
 
-Rasgos de 83 especies de mamíferos y sus horas de sueño. derivados de Savage & West (2007) e incluidos con `ggplot2`.
+Datos sintéticos de parques nacionales naturales (PNN), su región natural y conteos de especies
 
+##
+
+::: panel-tabset
+### datos
 
 ```{r}
+#| eval: true
 #| echo: false
-msleep |> head() |> gt() |> 
+
+areas_protegidas |>
+  gt() |>
   tab_style(
-    cell_text(size = '21px'),
+    cell_text(size = "22px"),
     locations = list(cells_body(),
                      cells_column_labels(everything()),
                      cells_title()))
 ```
 
-## Máximo `brainwt` para cada orden
+### código
+
+```{r}
+#| eval: false
+#| echo: true
+
+areas_protegidas <- tibble::tribble(
+  ~parque,        ~region,     ~departamento, ~extension_km2, ~aves, ~anfibios,
+  "Tayrona",      "Caribe",    "Magdalena",          150,      396,    56,
+  "S.N. Santa Marta", "Caribe","Magdalena",        3830,      628,    60,
+  "Macuira",      "Caribe",    "La Guajira",         250,      140,    10,
+  "Chingaza",     "Andina",    "Cundinamarca",       766,      397,    40,
+  "Los Nevados",  "Andina",    "Caldas",             583,      220,    26,
+  "Sumapaz",      "Andina",    "Cundinamarca",      1540,      279,    30,
+  "Utría",        "Pacífica",  "Chocó",              543,      380,    96,
+  "Gorgona",      "Pacífica",  "Cauca",              616,      155,    17,
+  "Amacayacu",    "Amazonía",  "Amazonas",          2935,      468,   143,
+  "Chiribiquete", "Amazonía",  "Caquetá",          42794,      300,    57,
+  "El Tuparro",   "Orinoquía", "Vichada",          5480,      320,    70,
+  "La Macarena",  "Orinoquía", "Meta",              6300,      430,    48
+)
+```
+:::
+
+## El parque más extenso de cada región
 
 :::{.med-code}
 ```{r}
@@ -186,8 +237,8 @@ msleep |> head() |> gt() |>
 #| echo: true
 #| output-location: fragment
 
-msleep |> group_by(order) |> 
-  slice_max(brainwt,n=1)
+areas_protegidas |> group_by(region) |> 
+  slice_max(extension_km2, n = 1)
 ```
 :::
 
@@ -199,8 +250,8 @@ msleep |> group_by(order) |>
 #| echo: true
 #| output-location: fragment
 
-msleep |> group_by(order) |> 
-  slice_sample(n=1)
+areas_protegidas |> group_by(region) |> 
+  slice_sample(n = 1)
 ```
 :::
 
@@ -213,8 +264,8 @@ Las tablas agrupadas por `group_by` retienen el agrupamiento, y para descartarlo
 #| echo: true
 #| output-location: fragment
 
-msleep |> group_by(order) |> 
-  slice_sample(n=1) |> ungroup()
+areas_protegidas |> group_by(region) |> 
+  slice_sample(n = 1) |> ungroup()
 ```
 
 ## Agrupamiento rápido
@@ -224,7 +275,7 @@ En versiones recientes de `dplyr`:
 - Agrupar con `.by` o `by`
 
 ```{r}
-msleep |> slice_sample(n=2, by = order) 
+areas_protegidas |> slice_sample(n = 2, by = region) 
 ```
 
 ##
@@ -243,9 +294,9 @@ msleep |> slice_sample(n=2, by = order)
 #| echo: true
 #| output-location: fragment
 
-msleep |> group_by(order) |> 
-  summarize(mediana_slp = median(sleep_total),
-            media_brainwt=mean(brainwt))
+areas_protegidas |> group_by(region) |> 
+  summarize(mediana_aves = median(aves),
+            media_extension = mean(extension_km2))
 ```
 :::
 
@@ -257,9 +308,9 @@ msleep |> group_by(order) |>
 #| echo: true
 #| output-location: fragment
 
-msleep |>  
-  summarize(mediana_slp = median(sleep_total),
-            media_brainwt=mean(brainwt), .by = "order")
+areas_protegidas |>  
+  summarize(mediana_aves = median(aves),
+            media_extension = mean(extension_km2), .by = "region")
 ```
 :::
 
@@ -349,8 +400,8 @@ hay constantes pre-instaladas en R que les pueden servir
 #| eval: false
 #| echo: true
 
-msleep |> 
-  group_by(order) |> # para cada orden
+areas_protegidas |> 
+  group_by(region) |> # para cada región
   slice_sample(1) # declaración a ejecutar 
                         
 ```
@@ -508,69 +559,19 @@ El cuerpo de la función (las declaraciones que se ejecutan al correr la funció
 
 :::{.med-code}
 ```{r}
-
-miFunc <- function(x) {
-  x + 4 # cuerpo
-}
-```
-:::
-</br>
-
-::: columns
-::: {.column width="35%"}
-
-:::{.med-code}
-```{r}
 #| echo: true
 #| eval: true
 
-miFunc(6)
-miFunc(x=6)
+mi_funcion(6)
+mi_funcion(mi_argumento = 6)
 ```
 :::
-:::
 
-::: {.column width="65%"}
 Al ejecutar funciones es opcional especificar los nombres de los argumentos, pero en funciones con \>1 argumentos, el orden importa
-:::
-:::
 
 ------------------------------------------------------------------------
 
-**PERO** no hacen falta llaves para funciones con una sola declaración
-
-:::{.big-code}
-```{r}
-#| echo: true
-#| eval: true
-f <- function(x) x+4   
-f(x=6)
-```
-:::
-
-:::{.big-code}
-```{r}
-#| echo: true
-#| eval: true
-f <- function(x) mean(x)/2   
-f(c(6,43,12,5,7))
-```
-:::
-
-------------------------------------------------------------------------
-
-Las llaves rodean el cuerpo en funciones con dos o más declaraciones
-
-:::{.med-code}
-```{r}
-#| eval: false
-#| echo: true
-
-f <- function(x)  y <- (x*0.2885) log(y) # ERROR  
-```
-:::
-
-Así sí funciona. Las declaraciones (statements) están en líneas separadas
+Las llaves rodean el cuerpo en funciones con dos o más declaraciones. Las declaraciones (statements) están en líneas separadas
 
 :::{.med-code}
 ```{r}
@@ -584,15 +585,6 @@ f <- function(x) {
 f(5)
 ```
 :::
-
-## Función sin argumentos
-
-```{r}
-queHoraEs <- function(){
-format(Sys.time(), "%H:%M")
-}
-queHoraEs()
-```
 
 ## Funciones anónimas
 
@@ -610,63 +602,6 @@ queHoraEs()
 
 
 La definición va entre paréntesis para separar la función de sus argumentos
-
-------------------------------------------------------------------------
-
-:::{.big-code}
-```{r}
-#| eval: false
-#| echo: true
-
-(function(x) x + 3)(10)
-```
-:::
-
-Es lo mismo que:
-
-:::{.big-code}
-```{r}
-#| eval: false
-#| echo: true
-
-f <- function(x) x + 3
-f(10)
-# o bien 
-f <- function(x) {x + 3}
-f(10)
-
-```
-:::
-
-## Notation corta (desde R v4.1.0)
-
-Reemplaza "`function(x) {}`" con "`\(x){}`"
-
-:::{.big-code}
-```{r}
-#| eval: true
-#| echo: true
-
-(\(x) x + 3)(10)
-
-(\(x) x / 2)(10)
-```
-:::
-
-
-::::{.rightref}
-:::{.refbox}
-Russ Hyde (2021)\
-[New features in R 4.1.0](https://www.jumpingrivers.com/blog/new-features-r410-pipe-anonymous-functions/)
-:::
-:::
-
-:::{.callout-note}
-## 
-Los desarrolladores del `tidyverse` están migrando al uso de esta notación; en `purrr`  ver este [PR](https://github.com/tidyverse/purrr/pull/1220)
-
-:::
-
 
 ## Funciones anónimas
 
@@ -737,21 +672,21 @@ Separando una data frame agrupada en una lista de data frames, una para cada gru
 
 ```{r}
 
-gremios <- 
-  msleep |> group_by(vore) |>
+regiones <- 
+  areas_protegidas |> group_by(region) |>
   group_split()
 ```
 
 ## 
 
 ```{r}
-gremios
+regiones
 ```
 
 ## 
 
 ```{r}
-class(gremios)
+class(regiones)
 ```
 
 ##
@@ -760,7 +695,7 @@ class(gremios)
 
 :::{.med-code}
 ```{r}
-msleep |> group_by(vore) |>
+areas_protegidas |> group_by(region) |>
   group_keys()
 ```
 :::
@@ -777,8 +712,8 @@ Primer elemento (`[[1]]`)
 #| eval: true
 #| echo: true
  
-gremios[[1]] |> 
-  select(name,genus) |> head()
+regiones[[1]] |> 
+  select(parque, departamento)
 
 ```
 
@@ -789,9 +724,8 @@ gremios[[1]] |>
 #| eval: true
 #| echo: true
 
-gremios[[2]] |> 
-  select(name,genus, vore, conservation) |> 
-  head
+regiones[[2]] |> 
+  select(parque, extension_km2, aves)
 
 ```
 
@@ -885,33 +819,6 @@ map(.x = rasgos, .f = resumenMMR)
 ```
 :::
 
-
-## `map()` con salidas específicas
-
-`map()` regresa listas
-
-`map_lgl()` regresa un vector T/F
-
-`map_int()` regresa un vector numérico
-
-`map_dbl()` regresa un vector numérico (con decimales)
-
-`map_chr()` regresa un vector de caracteres
-
-`map_df()` junta todo en un data frame
-
-##
-
-:::{.med-code}
-```{r}
-
-# regresa una lista
-map(rasgos, median, na.rm = TRUE)
-# aplana la lista en un vector
-map_dbl(rasgos, median, na.rm = TRUE)
-
-```
-:::
 
 ## `map()` con funciones anónimas
 
@@ -1024,7 +931,6 @@ R base tiene herramientas para iterar desde sus inicios: **la familia `apply`**
 | `purrr` | R Base |
 |:---|:---|
 | `map()` | `lapply()` |
-| `map_dbl()`, etc. | `vapply()` (o `sapply()`) |
 | `map2()`, `pmap()` | `mapply()` |
 
 ## Familia `apply`
@@ -1060,32 +966,6 @@ lapply(rasgos, mean, na.rm = TRUE)
 :::
 :::
 
-
-## Ejemplo: `map_dbl()` vs `vapply()`
-
-::: columns
-::: {.column width="50%"}
-**purrr**
-```{r}
-#| eval: true
-map_dbl(rasgos, mean, na.rm = TRUE)
-```
-:::
-
-::: {.column width="50%"}
-**R base**
-```{r}
-#| eval: true
-vapply(rasgos, mean, 
-       FUN.VALUE = numeric(1), 
-       na.rm = TRUE)
-```
-:::
-:::
-
-</br>
-
-Ambas devuelven un **vector numérico** 
 
 # Atajos y herramientas para mayor eficiencia  
 
@@ -1154,51 +1034,6 @@ Atajo de Open Containing Folder en Positron
 - Paleta de comandos Ctrl + Shift + P
 - Botón Split Editor
 
-# Novedades
-
-## 📦 [`annotater`](https://annotater.liomys.mx)
-
-
-Agregar detalles sobre los paquetes que estamos mencionando en nuestros scripts
-
-Fuente y versión
-
-```{r}
-#| echo: true
-#| eval: false
-
-library(dplyr)   # CRAN v1.0.7
-library(janitor) # CRAN v2.1.0
-```
-
-Título, fuente y versión
-
-```{r}
-#| echo: true
-#| eval: false
-
-library(readr) # Read Rectangular Text Data, CRAN v2.0.2
-```
-
--   *También podemos anotar cuáles funciones o datos de c/ paquete estamos usando*
-
-## 📦 [`littleboxes`](https://github.com/ThinkR-open/littleboxes)
-
-`remotes::install_github("ThinkR-open/littleboxes")`
-
-Cajas para títulos
-
-```{r}
-#| echo: true
-#| eval: false
-
-##%##################################################%##
-#                                                      #
-####    Mi análisis en R ,  Luis, Oct 2022          ####
-#                                                      #
-##%##################################################%##
-
-```
 
 
 ## Secciones de código y el esquema de documento
@@ -1216,13 +1051,3 @@ Las secciones se pueden colapsar y funcionan con el panel de navegación del edi
 
 -   Crear con cuatro guiones después de un comentario
 -   Insertar con `ctrl` + `shift` + `R`
-
-## Utilidades geniales
-
-### 📦 [`datapasta`](https://milesmcbain.github.io/datapasta/)
-
-Copiar y pegar datos desde y hacia R, manipular vectores
-
-![](imgs/tribble_paste.gif){width="48%"}
-
-- en Positron podemos usar Pastum
