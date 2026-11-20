@@ -12,6 +12,10 @@ project:
     - presentaciones/3-visualizacion.qmd
     - presentaciones/4-quarto.qmd
     - presentaciones/4-LQNNESR.qmd
+    - presentaciones/5.1-llm_configuracion.qmd
+    - presentaciones/5.2-llm_contexto.qmd
+    - presentaciones/5.3-llm_practica.qmd
+    - presentaciones/5.4-llm_extensiones.qmd
 
 website:
   title: "Herramientas para el manejo de datos de biodiversidad en R"

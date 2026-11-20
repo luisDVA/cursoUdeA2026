@@ -1,0 +1,166 @@
+---
+title: "Cómo integrar LLM en nuestro flujo de trabajo con R"
+subtitle: "Extensiones y más"
+author: Luis D. Verde Arregoitia
+format:
+  revealjs:
+    theme: curso_styles.scss
+    slide-number: true
+    chalkboard: true
+    transition: fade
+    progress: true
+    multiplex: false
+    preview-links: true
+    hide-inactive-cursor: true
+editor: source
+---
+
+
+# Algunas novedades 📰
+
+-   Cambios (como siempre) en el [ranking](https://scale.com/leaderboard/swe_bench_pro_public) de SWE-bench (evaluación de ingeniería de software)
+
+# Extensiones
+
+## Revisar instalaciones, configurar claves
+
+::: {large-slide-text}
+-   Posit Assistant\
+:::
+
+# Crear y editar código
+
+## Escribir documentación {background="#fff0f3"}
+
+
+a)  Escribir documentación de roxygen2 para la función en `randompenguins.R`
+
+<br/>
+
+*o*
+
+<br/>
+
+b)  Escribir comentarios o prosa explicando lo que hace el código
+
+## Extra
+
+Pide a cualquiera de los asistentes o modelos que traduzcan el código a Python
+
+## Contexto de sesión
+
+Crea estos objetos en tu espacio de trabajo, pregunta cómo unirlos para mantener todas las filas de `df1` y las filas coincidentes de `df2`
+
+```{r}
+#| echo: true
+#| eval: false
+library(tibble)
+df1 <- tibble(id = 1:5)
+df2 <- tibble(identifier = c(1, 1, 2),
+ y = c("first", "second", "third"))
+```
+
+# Creación de documentos Quarto
+
+## Presentación tlacuaches
+
+-   Pide a un LLM que lea esta nota (https://www.revista.unam.mx/2023v24n1/tlacuaches_y_basura_cero_en_ciudad_universitaria/) sobre tlacuaches y cree una presentación de Quarto breve (tres o cuatro diapositivas).
+
+- Sugiere parámetros estéticos de colores, fuentes, etc.
+
+# Extracción de datos estructurados
+
+## Múltiples entradas a objetos R utilizables
+
+### 🐘 `ellmer`
+
+-   Crear objeto chat
+-   Definir esquema usando un objeto 'type'
+-   Ejecutar `chat_structured`
+
+## Información biográfica
+
+-   Crear cadena de texto con información biográfica
+
+-   Definir esquema deseado usando `type_object`
+
+-   Usar método `chat_structured`
+
+## 
+
+```{r}
+#| eval: true
+#| echo: true
+
+library(ellmer)
+chatbio <- chat_openrouter(model = "~z-ai/glm-flash-latest", system_prompt = "extrae información")
+
+bio_text <- "Gonzalo Pineda Reyes (born October 19, 1982) is a Mexican professional football manager and former player. Pineda played as a defensive midfielder for several clubs in Mexico, and also represented Mexico internationally. He last played in 2015 for the Seattle Sounders FC. He became assistant coach of the Sounders beginning with the 2017 season. "
+
+bio_type <- type_object(
+  name=type_string("First initial and last name"),
+  sport=type_string("Sport played and professional leagues, separate with colon"),
+  ctry=type_string("Country of origin")
+)
+
+```
+
+## 
+
+```{r}
+#| eval: true
+#| echo: true
+chatbio$chat_structured(type=bio_type,bio_text)
+```
+
+
+## OCR + extracción
+
+### Demo de PDF de murciélago
+
+Comparación de modelos y características [aquí](https://posit-conf-2025.github.io/llm/slides/slides-04.html#/model-comparison)
+
+::::: columns
+::: {.column width="50%"}
+-   `extractPDFdemo.R`
+-   stenoderma.PDF
+:::
+
+::: {.column width="50%"}
+![](https://inaturalist-open-data.s3.amazonaws.com/photos/674270/medium.jpg){width="40%"}
+:::
+:::::
+
+## Visión 🔭
+
+::::: columns
+::: {.column width="50%"}
+![](https://www.surfdogchampionships.com/wp-content/uploads/2019/08/i-Wg3VMHr-L.jpg){width="53%"}
+:::
+
+::: {.column width="50%"}
+Las imágenes también se pueden tokenizar. Las preparamos con funciones `content_image_*`.
+:::
+:::::
+
+```{r}
+#| echo: true
+#| eval: true
+#| output-location: slide
+
+chatImg <- chat_openrouter(model = "~z-ai/glm-flash-latest")
+chatImg$chat(
+  content_image_url("https://www.surfdogchampionships.com/wp-content/uploads/2019/08/i-Wg3VMHr-L.jpg"),
+  "Qué hay en esta foto? contesta con brevedad y solo en mayúsculas"
+)
+```
+
+
+## Extra
+
+- Crear el esqueleto de un paquete de reproducibilidad a partir de datos y scripts sueltos y desordenados
+-   Usar una TUI para renombrar o traducir múltiples archivos
+-   Crear una aplicación Shiny desde cero (app de rifa, app de nombres de perros, etc.)
+
+# 👋 ¡Gracias!
+

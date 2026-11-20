@@ -1,0 +1,17 @@
+{
+  "hash": "b15188f17460784117fa115e2cf4f810",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Cómo integrar LLM en nuestro flujo de trabajo con R\"\nsubtitle: \"Configuración\"\nauthor: Luis D. Verde Arregoitia\nformat:\n  revealjs:\n    theme: curso_styles.scss\n    slide-number: true\n    chalkboard: true\n    transition: fade\n    progress: true\n    multiplex: false\n    preview-links: true\n    hide-inactive-cursor: true\neditor: source\n---\n\n\n::: {.cell}\n\n:::\n\n\n## 🤝 \n\n- ¿Te gusta/entusiasma/aterra la IA? <br>\n- ¿Alguna sorpresa grata con alguna herramienta de IA? <br>\n- ¿Alguna mala experiencia?\n\n## \n\n</br> </br>\n\nUsaremos modelos alojados en la nube \n\n## LLaves de API\n\nNecesitamos identificarnos con el proveedor del modelo y autenticar nuestra conexión cifrada a sus servidores\n\n\n#### Flujo general\n\n- Crear una cuenta con un proveedor(💳 ?)\n- Generar una clave de API\n- Mantenerla segura pero accesible para nuestras herramientas\n- Para algunas suscripciones iniciamos sesión en el navegador en lugar de con llaves de API\n\n## LLaves de API\n\n### En R\n\nLa mayoría de los paquetes funcionan con llaves almacenadas en variables de entorno.\n\n### En asistentes con GUI\n\nIngresamos nuestras claves de forma interactiva\n\n</br>\n\n⚠️ Nunca compartas claves en repositorios públicos, unidades de red, documentos compartidos o grabaciones de pantalla.\n\n::::::: rightref\n:::::: refbox\n::::: columns\n::: {.column width=\"50%\"}\nH. Wickham <br> [Managing secrets](https://cran.r-project.org/web/packages/httr/vignettes/secrets.html)\n:::\n\n::: {.column width=\"50%\"}\nTed Laderas <br> [A gRadual introduction to web APIs and JSON](https://www.youtube.com/watch?v=HA7KfdEsdpo)\n:::\n:::::\n::::::\n:::::::\n\n## Configuración de API\n\nHoy usarermos llaves para un proveedor popular. Se desactiva sola más tarde.\n\n## Suscripciones, prepago y claves de API\n\n- El precio depende del uso\n\n- Las suscripciones van de \\~1 a 250 USD/mes, con límites en el número de peticiones y/o tokens\n\n- Existe la opción de prepago de saldo\n\n- Los tokens son la moneda básica de los LLMs, aproximadamente equivalentes a palabras\n\n[Comparación de costos 2026](https://atxp.ai/blog/ai-api-cost-comparison/) por ATPX\n\n##\n\n![foto: Augusto Romero](imgs/Tianguis_en_San_Cristobal_Ecatepec.JPG)\n\n## \n\n![](imgs/joe.png)\n\n\n## Probabilidades de tokens\n\nAplicación \"Token Possibilities\" por Garrick Aiden Buie\n\n[App original de 2025](https://github.com/posit-conf-2025/llm/blob/f41bb7edd37f20a44ec76cb35e9791bd60082837/_demos/04_token-possibilities/app.R)\n\n## Configuración - R\n\nTemporal: `Sys.setenv(OPENAI_API_KEY = \"clave_api\")` (entre comillas) o \"`ANTHROPIC_API_KEY`\" o \"OPENROUTER_API_KEY\" o cualquier otro proveedor\n\nPermanente: `usethis::edit_r_environ()`\n\nEn herramientas con interfaz gráfica podríamos también necesitar ingresar una URL base\\\n(ej. https://openrouter.ai/api/v1)\n\n## Archivos del taller\n\nDescargar y extraer el archivo comprimido desde la página de materiales\n\n",
+    "supporting": [
+      "5.1-llm_configuracion_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

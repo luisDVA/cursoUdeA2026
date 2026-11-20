@@ -1,0 +1,179 @@
+---
+title: "Cómo integrar LLM en nuestro flujo de trabajo con R"
+subtitle: "Práctica"
+author: Luis D. Verde Arregoitia
+format:
+  revealjs:
+    theme: curso_styles.scss
+    slide-number: true
+    chalkboard: true
+    transition: fade
+    progress: true
+    multiplex: false
+    preview-links: true
+    hide-inactive-cursor: true
+editor: source
+---
+
+
+# Práctica
+
+
+## Ayuda con contexto
+
+-   Preguntarle al chatbot en el ~~navegador~~ IDE
+-   ~~Copiar~~ Aplicar la respuesta ~~y pegarla~~ en R
+-   ~~Compartir los errores o resultados con el chat~~
+-   ~~Repetir (y potencialmente introducir errores)~~
+
+## `ellmer` y compañía
+
+![](https://posit.co/wp-content/uploads/2025/02/dots-1.jpg){width="26%"}
+
+### Conectando R y LLM
+
+-   Robusto y diseñado específicamente para interacción fácil con LLM directamente desde R
+
+-   Soporte para casi todos los proveedores y pensado para uso empresarial/producción
+
+-   Permite que los modelos extiendan sus capacidades ejecutando código R
+
+## `ellmer` y compañía
+
+![](https://posit.co/wp-content/uploads/2025/02/dots-1.jpg){width="26%"}
+
+### Conectando R y LLM
+
+-   Los resultados son inmediatamente utilizables en R
+
+-   Integraciones para 'ver' la sesión de R
+
+-   Equipo de desarrollo activo
+
+## Demo de `ellmer`
+
+```{r}
+#| eval: false
+#| echo: true
+
+library(ellmer)
+my_chat <- chat_openrouter(model = "~z-ai/glm-flash-latest")
+my_chat
+my_chat$chat("qué comen loss conejos")
+```
+
+<br/> Interactúa con el modelo y luego revisa tu objeto de chat nuevamente
+
+<br/> Crea un nuevo objeto de chat con un modelo y prompt de sistema diferentes
+
+## Interactuar con el objeto de chat
+
+Sin salir de R:
+
+</br>
+
+### En la consola de R
+
+`live_console(my_chat)`
+
+### En nuestro navegador web
+
+`live_browser(my_chat)`
+
+# Extensiones
+
+## Extensiones de Positron (vsCode)
+
+Incluidas con el IDE, o instalar desde el 'mercado' OpenVSX en el panel de *Extensiones*
+
+::: {large-slide-text}
+-   Posit Assistant
+-   Kilo Code
+:::
+
+### Extensiones adquiridas/descontinuadas  
+::: {large-slide-text}
+-   Continue\ 
+-   Windsurf\
+-   Roo Code\
+:::
+
+## Posit Assistant
+
+-   Incluido en versiones recientes de Positron y RStudio
+-   Altamente integrado
+-   Pensado para R y Python
+-   Herramientas integradas para análisis exploratorio de datos y visualización
+-   👀
+
+## Posit Assistant
+
+- Disponible a partir de 02/2026
+- Pensado principalmente para suscripción Posit AI (desde 20 USD/mes)
+- Disponible en RStudio (ojo con la configuración de la barra lateral)
+
+## Kilo Code [kilo.ai](https://kilo.ai/)
+
+> Agente de código de IA de código abierto, disponible como extensión de IDE y CLI
+
+Características destacadas:
+
+-   Código abierto (licencia MIT) — sin prompts de caja negra ni contexto oculto
+-   BYO key o pagar por acceso a diversos modelos similar a OpenRouter
+
+## 
+
+![](imgs/200s.jpg)
+
+
+## Interfaces de usuario en terminal (TUIs)
+
+En lugar de una extensión de IDE, estas herramientas funcionan como agentes directamente en una ventana de terminal
+
+-   Agnósticas al lenguaje/editor — funcionan junto a R, Python, Positron, RStudio, etc.
+-   Operan directamente sobre archivos y carpetas y pueden ejecutar programas en la terminal
+-   Incluyen planificación, edición en múltiples pasos, ejecución de pruebas
+
+## ¿Por qué usar una herramienta TUI?
+
+-   Sin dependencia de un IDE — funciona bien con nuestro flujo de trabajo existente de R/RStudio/Positron
+-   Útiles para tareas grandes o complicadas, de múltiples archivos o múltiples pasos
+-   Se pueden programar o ejecutar de forma no interactiva
+
+
+## Claude Code [claude.com/product/claude-code](https://www.claude.com/product/claude-code)
+
+> Agente CLI oficial de Anthropic
+
+Características destacadas:
+
+-   Conciencia del repositorio (lee/busca/edita a través de un repo)
+-   Modo plan vs. auto-aceptar ediciones
+-   Archivos de memoria de proyecto `CLAUDE.md`
+-   Soporte de servidores MCP para herramientas adicionales
+
+## OpenAI Codex CLI [github.com/openai/codex](https://github.com/openai/codex)
+
+Características destacadas:
+
+-   Ejecución de comandos en entorno aislado
+-   Modos de aprobación (suggest / auto-edit / full-auto)
+
+## Gemini CLI [github.com/google-gemini/gemini-cli](https://github.com/google-gemini/gemini-cli)
+
+Características destacadas:
+
+-   Cuenta gratuita con **límites de uso muy generosos**
+-   Herramientas integradas para búsqueda web y operaciones de archivos
+
+## Command Code [commandcode.ai](https://commandcode.ai/)
+
+> Agente de código en terminal que aprende los estilos de programación de las personas usuarias
+
+Características destacadas:
+
+-   Aprende de cada decisión
+-   Funciona con muchos modelos abiertos y cerrados (DeepSeek, GPT, MiniMax, y más)
+-   Exclusivamente con suscripción
+
+

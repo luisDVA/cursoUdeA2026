@@ -117,8 +117,12 @@ sp_p1<-sp_data|>
 NOTA: el nombre de la variable puede ser diferente (*e.g.*, "LATITUDE", "Latidude", "lat", etc. Siempre hay que checar antes)
 :::
 
-## 
+## sdfsdnsd,mfnsdfnsdf,snsdnfnfndnfnfnfnfnfnfnfnfnfnnfdmdmdmdmdnfndn
 
+nfnfn
+mdmdm
+masdsdfsndfnsdfnsdnfsdfnsdfnsdnfsndfmsndfmnmsdnfmsdsdmsmdfmsdfmsdfmsdmsdfsdf
+sadfsdfsdf
 Graficar (poner en un mapa) los puntos de presencia de nuestra especie
 
 ```{r}

@@ -98,7 +98,7 @@
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-0d756990394d3789aca1fdd024a8140b.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-4cefe610d5c103501e0c5ed8ad40cd24.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -457,6 +457,26 @@ format:
 highlight-style: breeze
 ---</code></pre>
 </section>
+<section id="múltiples-formatos-de-salida" class="slide level2">
+<h2>Múltiples formatos de salida</h2>
+<p>Un mismo documento puede generar varios formatos a la vez (por ejemplo Word y PDF), declarándolos en el YAML</p>
+<ul>
+<li><code>quarto render documento.qmd</code> genera <strong>todos</strong> los formatos</li>
+<li><code>quarto render documento.qmd --to docx</code> genera solo uno</li>
+<li>En RStudio, el menú del botón <em>Render</em> permite elegir el formato</li>
+</ul>
+</section>
+<section id="section-3" class="slide level2">
+<h2></h2>
+<pre><code>---
+title: "Mi reporte"
+author: "Tu nombre aquí"
+format:
+  html: default
+  docx: default
+  pdf: default
+---</code></pre>
+</section>
 <section id="presentaciones" class="slide level2">
 <h2>Presentaciones</h2>
 <p>Quarto usa el framework <code>reveal.js</code> para crear presentaciones HTML</p>
@@ -483,22 +503,28 @@ format:
   revealjs:
     transition: fade
 ---</code></pre>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">## A mi mascota le gusta</span></span>
-<span id="cb11-2"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-3"><a aria-hidden="true" tabindex="-1"></a>::: incremental</span>
-<span id="cb11-4"><a aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>comer</span>
-<span id="cb11-5"><a aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>jugar</span>
-<span id="cb11-6"><a aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>dormir</span>
-<span id="cb11-7"><a aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb11-8"><a aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu"># Cambiando de tema {background-color="yellow"}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">## A mi mascota le gusta</span></span>
+<span id="cb12-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a aria-hidden="true" tabindex="-1"></a>::: incremental</span>
+<span id="cb12-4"><a aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>comer</span>
+<span id="cb12-5"><a aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>jugar</span>
+<span id="cb12-6"><a aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>dormir</span>
+<span id="cb12-7"><a aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb12-8"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a aria-hidden="true" tabindex="-1"></a><span class="fu"># Cambiando de tema {background-color="yellow"}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="compartiendo-documentos-quarto" class="slide level2">
 <h2>Compartiendo documentos Quarto</h2>
 <h3 id="renderizar-y-compartir">Renderizar y compartir</h3>
 <ul>
-<li>como HTML (embed-resources), PDF, PPT, etc.</li>
+<li>como HTML (<code>embed-resources</code>), PDF, PPT, etc.</li>
 </ul>
+<pre><code>---
+title: "Mi reporte"
+format:
+  html:
+    embed-resources: true
+---</code></pre>
 <h3 id="publicar-en-posit-connect">Publicar en Posit Connect</h3>
 <p>Gratis para documentos no muy pesados</p>
 <h3 id="publicar-en-github-pages-netlify-etc.">Publicar en GitHub Pages, Netlify, etc.</h3>

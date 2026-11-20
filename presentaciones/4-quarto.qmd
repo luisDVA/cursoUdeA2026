@@ -282,6 +282,28 @@ highlight-style: breeze
 ---
 ```
 
+## Múltiples formatos de salida
+
+Un mismo documento puede generar varios formatos a la vez (por ejemplo Word y PDF), declarándolos en el YAML
+
+-   `quarto render documento.qmd` genera **todos** los formatos
+-   `quarto render documento.qmd --to docx` genera solo uno
+-   En RStudio, el menú del botón *Render* permite elegir el formato
+
+
+## 
+
+```         
+---
+title: "Mi reporte"
+author: "Tu nombre aquí"
+format:
+  html: default
+  docx: default
+  pdf: default
+---
+```
+
 ## Presentaciones
 
 Quarto usa el framework `reveal.js` para crear presentaciones HTML
@@ -324,7 +346,16 @@ format:
 ## Compartiendo documentos Quarto
 
 ### Renderizar y compartir
-- como HTML (embed-resources), PDF, PPT, etc.
+- como HTML (`embed-resources`), PDF, PPT, etc.
+
+```         
+---
+title: "Mi reporte"
+format:
+  html:
+    embed-resources: true
+---
+```
 
 ### Publicar en Posit Connect
 

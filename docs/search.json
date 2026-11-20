@@ -1,5 +1,236 @@
 [
   {
+    "objectID": "presentaciones/5.4-llm_extensiones.html#revisar-instalaciones-configurar-claves",
+    "href": "presentaciones/5.4-llm_extensiones.html#revisar-instalaciones-configurar-claves",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Revisar instalaciones, configurar claves",
+    "text": "Revisar instalaciones, configurar claves\n\n\nPosit Assistant"
+  },
+  {
+    "objectID": "presentaciones/5.4-llm_extensiones.html#escribir-documentación",
+    "href": "presentaciones/5.4-llm_extensiones.html#escribir-documentación",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Escribir documentación",
+    "text": "Escribir documentación\n\nEscribir documentación de roxygen2 para la función en randompenguins.R\n\n\no\n\n\nEscribir comentarios o prosa explicando lo que hace el código"
+  },
+  {
+    "objectID": "presentaciones/5.4-llm_extensiones.html#extra",
+    "href": "presentaciones/5.4-llm_extensiones.html#extra",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Extra",
+    "text": "Extra\nPide a cualquiera de los asistentes o modelos que traduzcan el código a Python"
+  },
+  {
+    "objectID": "presentaciones/5.4-llm_extensiones.html#contexto-de-sesión",
+    "href": "presentaciones/5.4-llm_extensiones.html#contexto-de-sesión",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Contexto de sesión",
+    "text": "Contexto de sesión\nCrea estos objetos en tu espacio de trabajo, pregunta cómo unirlos para mantener todas las filas de df1 y las filas coincidentes de df2\n\nlibrary(tibble)\ndf1 &lt;- tibble(id = 1:5)\ndf2 &lt;- tibble(identifier = c(1, 1, 2),\n y = c(\"first\", \"second\", \"third\"))"
+  },
+  {
+    "objectID": "presentaciones/5.4-llm_extensiones.html#presentación-tlacuaches",
+    "href": "presentaciones/5.4-llm_extensiones.html#presentación-tlacuaches",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Presentación tlacuaches",
+    "text": "Presentación tlacuaches\n\nPide a un LLM que lea esta nota (https://www.revista.unam.mx/2023v24n1/tlacuaches_y_basura_cero_en_ciudad_universitaria/) sobre tlacuaches y cree una presentación de Quarto breve (tres o cuatro diapositivas).\nSugiere parámetros estéticos de colores, fuentes, etc."
+  },
+  {
+    "objectID": "presentaciones/5.4-llm_extensiones.html#múltiples-entradas-a-objetos-r-utilizables",
+    "href": "presentaciones/5.4-llm_extensiones.html#múltiples-entradas-a-objetos-r-utilizables",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Múltiples entradas a objetos R utilizables",
+    "text": "Múltiples entradas a objetos R utilizables\n🐘 ellmer\n\nCrear objeto chat\nDefinir esquema usando un objeto ‘type’\nEjecutar chat_structured"
+  },
+  {
+    "objectID": "presentaciones/5.4-llm_extensiones.html#información-biográfica",
+    "href": "presentaciones/5.4-llm_extensiones.html#información-biográfica",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Información biográfica",
+    "text": "Información biográfica\n\nCrear cadena de texto con información biográfica\nDefinir esquema deseado usando type_object\nUsar método chat_structured"
+  },
+  {
+    "objectID": "presentaciones/5.4-llm_extensiones.html#section",
+    "href": "presentaciones/5.4-llm_extensiones.html#section",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "",
+    "text": "library(ellmer)\nchatbio &lt;- chat_openrouter(model = \"~z-ai/glm-flash-latest\", system_prompt = \"extrae información\")\n\nbio_text &lt;- \"Gonzalo Pineda Reyes (born October 19, 1982) is a Mexican professional football manager and former player. Pineda played as a defensive midfielder for several clubs in Mexico, and also represented Mexico internationally. He last played in 2015 for the Seattle Sounders FC. He became assistant coach of the Sounders beginning with the 2017 season. \"\n\nbio_type &lt;- type_object(\n  name=type_string(\"First initial and last name\"),\n  sport=type_string(\"Sport played and professional leagues, separate with colon\"),\n  ctry=type_string(\"Country of origin\")\n)"
+  },
+  {
+    "objectID": "presentaciones/5.4-llm_extensiones.html#section-1",
+    "href": "presentaciones/5.4-llm_extensiones.html#section-1",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "",
+    "text": "chatbio$chat_structured(type=bio_type,bio_text)\n\n$name\n[1] \"Gonzalo Pineda Reyes\"\n\n$sport\n[1] \"association football\"\n\n$ctry\n[1] \"Mexico\""
+  },
+  {
+    "objectID": "presentaciones/5.4-llm_extensiones.html#ocr-extracción",
+    "href": "presentaciones/5.4-llm_extensiones.html#ocr-extracción",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "OCR + extracción",
+    "text": "OCR + extracción\nDemo de PDF de murciélago\nComparación de modelos y características aquí\n\n\n\nextractPDFdemo.R\nstenoderma.PDF"
+  },
+  {
+    "objectID": "presentaciones/5.4-llm_extensiones.html#visión",
+    "href": "presentaciones/5.4-llm_extensiones.html#visión",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Visión 🔭",
+    "text": "Visión 🔭\n\n\n\n\nLas imágenes también se pueden tokenizar. Las preparamos con funciones content_image_*.\n\n\nchatImg &lt;- chat_openrouter(model = \"~z-ai/glm-flash-latest\")\nchatImg$chat(\n  content_image_url(\"https://www.surfdogchampionships.com/wp-content/uploads/2019/08/i-Wg3VMHr-L.jpg\"),\n  \"Qué hay en esta foto? contesta con brevedad y solo en mayúsculas\"\n)"
+  },
+  {
+    "objectID": "presentaciones/5.4-llm_extensiones.html#visión-output",
+    "href": "presentaciones/5.4-llm_extensiones.html#visión-output",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Visión 🔭",
+    "text": "Visión 🔭\n\nDOS PERROS CON CHALECOS SALVAVIDAS NARANJAS SURFEANDO EN UNA TABLA AMARILLA \nENTRE LAS OLAS. UN BULLDOG ESTÁ TUMBADO EN LA TABLA Y UN LABRADOR DETRÁS. HAY \nUNA CÁMARA (GOPRO) MONTADA EN LA TABLA Y UNA PERSONA PARCIALMENTE VISIBLE \nDETRÁS DE LOS PERROS."
+  },
+  {
+    "objectID": "presentaciones/5.4-llm_extensiones.html#extra-1",
+    "href": "presentaciones/5.4-llm_extensiones.html#extra-1",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Extra",
+    "text": "Extra\n\nCrear el esqueleto de un paquete de reproducibilidad a partir de datos y scripts sueltos y desordenados\nUsar una TUI para renombrar o traducir múltiples archivos\nCrear una aplicación Shiny desde cero (app de rifa, app de nombres de perros, etc.)"
+  },
+  {
+    "objectID": "presentaciones/5.2-llm_contexto.html#los-llm-pueden-ayudarnos-con",
+    "href": "presentaciones/5.2-llm_contexto.html#los-llm-pueden-ayudarnos-con",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Los LLM pueden ayudarnos con:",
+    "text": "Los LLM pueden ayudarnos con:\n\nGeneración de texto, traducción, análisis de sentimiento, escritura y depuración de código, texto a voz, voz a texto, generación de imágenes y videos, etc."
+  },
+  {
+    "objectID": "presentaciones/5.2-llm_contexto.html#dónde-están-los-modelos-quién-los-crea",
+    "href": "presentaciones/5.2-llm_contexto.html#dónde-están-los-modelos-quién-los-crea",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "¿Dónde están los modelos? ¿Quién los crea?",
+    "text": "¿Dónde están los modelos? ¿Quién los crea?\n\nOpenAI (serie GPT incluyendo ChatGPT)\nGoogle AI (Modelos Gemini)\nAnthropic (Modelos Claude)\nDeepSeek (DeepSeek R1)\nZ AI (Modelos GLM)\nMoonshot AI (Modelos Kimi)"
+  },
+  {
+    "objectID": "presentaciones/5.2-llm_contexto.html#modelos-proveedores",
+    "href": "presentaciones/5.2-llm_contexto.html#modelos-proveedores",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Modelos != Proveedores",
+    "text": "Modelos != Proveedores\nLas empresas entrenan y publican modelos para diferentes casos de uso\n\nModelos generales, ligeros, para programación, etc.\nLos modelos pueden ser abiertos o propietarios\nLos proveedores pueden alojar múltiples modelos de diferentes creadores\nLos chats web incluyen modelos + varias herramientas (que no siempre son evidentes)"
+  },
+  {
+    "objectID": "presentaciones/5.2-llm_contexto.html#veamos",
+    "href": "presentaciones/5.2-llm_contexto.html#veamos",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Veamos",
+    "text": "Veamos\n\n\nTablero de clasificación de LLM"
+  },
+  {
+    "objectID": "presentaciones/5.2-llm_contexto.html#modelos-en-la-nube",
+    "href": "presentaciones/5.2-llm_contexto.html#modelos-en-la-nube",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Modelos en la nube",
+    "text": "Modelos en la nube\n\n\n\nConfiguración ‘sencilla’\nCrear cuenta, configurar facturación si aplica, obtener una clave de API\nAcceso a modelos nuevos y en desarrollo, y gran capacidad de cómputo (incluso modelos sorpresa)\n\n\n\nPuede ser costoso\nNecesitamos acceso a internet\nEnviamos nuestros datos a la API"
+  },
+  {
+    "objectID": "presentaciones/5.2-llm_contexto.html#modelos-locales",
+    "href": "presentaciones/5.2-llm_contexto.html#modelos-locales",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Modelos locales",
+    "text": "Modelos locales\nDescargar modelos más pequeños en nuestro propio hardware\n\n\n\nLos datos no se comparten con un proveedor\nSin costos continuos\nFuncionan sin conexión\n\n\n\n\n\nCurva de aprendizaje pronunciada\nRequisitos de memoria grandes\nRendimiento más lento"
+  },
+  {
+    "objectID": "presentaciones/5.2-llm_contexto.html#qué-modelo-uso",
+    "href": "presentaciones/5.2-llm_contexto.html#qué-modelo-uso",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "¿Qué modelo uso?",
+    "text": "¿Qué modelo uso?\nConsideraciones\n\n\n\nPrecio\nCuentas gratuitas, precio por token, políticas de facturación\nVentanas de contexto\nCompatibilidad con nuestras herramientas elegidas\nVelocidad\n\n\n\nRendimiento\nPrivacidad\nHardware"
+  },
+  {
+    "objectID": "presentaciones/5.2-llm_contexto.html#eligiendo-modelos",
+    "href": "presentaciones/5.2-llm_contexto.html#eligiendo-modelos",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Eligiendo modelos",
+    "text": "Eligiendo modelos\nSugerencia de Sara Altman y Simon Couch:\n\nEncontrar el límite superior de lo que podemos hacer con el modelo más caro al que tengamos acceso (de preferencia como parte de una promo o prueba gratis) y comparar la misma tarea con modelos más económicos"
+  },
+  {
+    "objectID": "presentaciones/5.2-llm_contexto.html#no-tengo-una-macbook-m5-ni",
+    "href": "presentaciones/5.2-llm_contexto.html#no-tengo-una-macbook-m5-ni",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "No tengo una macbook m5 ni $$$",
+    "text": "No tengo una macbook m5 ni $$$\n\nGithub Copilot en un plan académico de GitHub Educatuion\nCuenta gratuita en Groq\nGemini Code Assist for individuals con cuenta Google\nMes de prueba gratuito en Posit AI"
+  },
+  {
+    "objectID": "presentaciones/5.2-llm_contexto.html#cambios-de-contexto",
+    "href": "presentaciones/5.2-llm_contexto.html#cambios-de-contexto",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Cambios de contexto",
+    "text": "Cambios de contexto\nCambiar nuestra atención entre diferentes tareas o programas cansa y quita productividad\n\nPreguntar al chatbot en el navegador\nCopiar la respuesta y pegarla en R\nCompartir los errores o resultados con el chat\nRepetir (y potencialmente introducir errores)"
+  },
+  {
+    "objectID": "presentaciones/5.2-llm_contexto.html#programar-con-llm",
+    "href": "presentaciones/5.2-llm_contexto.html#programar-con-llm",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Programar con LLM",
+    "text": "Programar con LLM\n\nAutocompletar\n\n\nLos modelos sugieren ‘texto fantasma’ mientras escribimos\n\nDistrae mucho en docencia\n\nLas sugerencias pueden no ser útiles pero son mayormente inofensivas"
+  },
+  {
+    "objectID": "presentaciones/5.2-llm_contexto.html#programar-con-llm-1",
+    "href": "presentaciones/5.2-llm_contexto.html#programar-con-llm-1",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Programar con LLM",
+    "text": "Programar con LLM\n\nChats\n\n\nEnviamos prompts, obtenemos respuestas\nA menudo nos permiten proveer contexto y subir archivos\nLos resultados se pueden copiar o insertar directamente en un script\nEn el navegador o a través de APIs"
+  },
+  {
+    "objectID": "presentaciones/5.2-llm_contexto.html#programar-con-llm-2",
+    "href": "presentaciones/5.2-llm_contexto.html#programar-con-llm-2",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Programar con LLM",
+    "text": "Programar con LLM\n\nAgentes\n\nPueden ejecutar código y modificar archivos\nFormulan y siguen planes\nConsumen muchos tokens\nNos hacen asumir que los resultados son correctos\nPueden usar archivos con ‘habilidades’, recordar preferencias e interacciones previas"
+  },
+  {
+    "objectID": "presentaciones/5.2-llm_contexto.html#qué-preguntas-podríamos-poner-en-una-ventana-de-chat-de-llm",
+    "href": "presentaciones/5.2-llm_contexto.html#qué-preguntas-podríamos-poner-en-una-ventana-de-chat-de-llm",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "¿Qué preguntas podríamos poner en una ventana de chat de LLM?",
+    "text": "¿Qué preguntas podríamos poner en una ventana de chat de LLM?\n\n\n&gt; ¿Cómo agrego un subtítulo a mi figura de ggplot?\n&gt; ¿Cuáles son los argumentos de pivot_wider()?\n&gt; No puedo unir mi objeto tabla_1 con mi data frame dat3, ¡ayuda!\n\n\n\nNotemos la diferencia en el tipo de pregunta. Esto será importante pronto."
+  },
+  {
+    "objectID": "presentaciones/5.2-llm_contexto.html#los-llm-no-tienen-estado",
+    "href": "presentaciones/5.2-llm_contexto.html#los-llm-no-tienen-estado",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Los LLM no tienen estado",
+    "text": "Los LLM no tienen estado"
+  },
+  {
+    "objectID": "presentaciones/5.2-llm_contexto.html#los-llm-no-tienen-estado-1",
+    "href": "presentaciones/5.2-llm_contexto.html#los-llm-no-tienen-estado-1",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Los LLM no tienen estado",
+    "text": "Los LLM no tienen estado\n\nNo retienen memoria de interacciones previas\nEl contexto se logra enviando todos los mensajes previos con cada nueva petición\nDebido a limitaciones de tokens y tamaño de contexto, hay estrategias para truncar, optimizar, o dejar archivos con apuntes persistentes"
+  },
+  {
+    "objectID": "presentaciones/5.2-llm_contexto.html#los-llm-no-tienen-estado-2",
+    "href": "presentaciones/5.2-llm_contexto.html#los-llm-no-tienen-estado-2",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Los LLM no tienen estado",
+    "text": "Los LLM no tienen estado\n\n\nInicia nuevos chats a menudo\nDivide tareas entre chats\nUsa prompts de sistema detallados"
+  },
+  {
+    "objectID": "presentaciones/5.2-llm_contexto.html#los-modelos-por-sí-solos-no-pueden-actuar-en-el-mundo",
+    "href": "presentaciones/5.2-llm_contexto.html#los-modelos-por-sí-solos-no-pueden-actuar-en-el-mundo",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Los modelos por sí solos no pueden actuar en el mundo",
+    "text": "Los modelos por sí solos no pueden actuar en el mundo"
+  },
+  {
+    "objectID": "presentaciones/5.2-llm_contexto.html#los-modelos-por-sí-solos-no-pueden-actuar-en-el-mundo-1",
+    "href": "presentaciones/5.2-llm_contexto.html#los-modelos-por-sí-solos-no-pueden-actuar-en-el-mundo-1",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Los modelos por sí solos no pueden actuar en el mundo",
+    "text": "Los modelos por sí solos no pueden actuar en el mundo\n\nUn modelo solo sabe lo que “aprendió” durante el entrenamiento, más lo que está en su ventana de contexto\nNo puede navegar internet, ejecutar código o leer archivos en nuestra computadora por sí mismo\nNo puede consultar el clima, leer una página web o abrir un CSV a menos que algo le dé esa capacidad"
+  },
+  {
+    "objectID": "presentaciones/5.2-llm_contexto.html#herramientas",
+    "href": "presentaciones/5.2-llm_contexto.html#herramientas",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Herramientas",
+    "text": "Herramientas\n\nLas herramientas permiten que un modelo solicite una acción: buscar en la web, leer/escribir un archivo, ejecutar código, consultar una base de datos\nEl modelo no realiza la acción por sí mismo — la solicita, y un programa ejecuta la petición y le devuelve el resultado\nEsta es la base de los flujos de trabajo “agénticos”"
+  },
+  {
     "objectID": "presentaciones/4-LQNNESR.html#temas-de-este-bloque",
     "href": "presentaciones/4-LQNNESR.html#temas-de-este-bloque",
     "title": "Lo que nadie nos enseñó sobre R",
@@ -984,7 +1215,7 @@
     "href": "materiales.html#presentaciones",
     "title": "Materiales del curso",
     "section": "Presentaciones",
-    "text": "Presentaciones\nEstas presentaciones en formato web cuentan con un índice de contenidos interactivo (botón en la esquina inferior izquierda).\n\nMartes\nFlujos de Trabajo y Organización de Proyectos\nEjercicio de arranque\n\nManipulación y Limpieza de datos\n\n\n\n\nMiércoles\nVisualización de Datos\n\n\nJueves\nCreando documentos con Quarto\nEjemplos para practicar:\nEjemplos de Quarto (archivosquarto.zip)\nLo que Nunca nos Enseñaron sobre R\n\n\n\n\n\n\n\nViernes"
+    "text": "Presentaciones\nEstas presentaciones en formato web cuentan con un índice de contenidos interactivo (botón en la esquina inferior izquierda).\n\nMartes\nFlujos de Trabajo y Organización de Proyectos\nEjercicio de arranque\n\nManipulación y Limpieza de datos\n\n\n\n\nMiércoles\nVisualización de Datos\n\n\nJueves\nCreando documentos con Quarto\nEjemplos para practicar:\nEjemplos de Quarto (archivosquarto.zip)\nLo que Nunca nos Enseñaron sobre R\n\n\n\n\n\n\n\nViernes\nCómo integrar LLM en nuestro flujo de trabajo con R - Configuración\nCómo integrar LLM en nuestro flujo de trabajo con R - Contexto general\nCómo integrar LLM en nuestro flujo de trabajo con R - Práctica\nCómo integrar LLM en nuestro flujo de trabajo con R - Extensiones y más\nArchivos para la práctica (archivosDemo.zip)"
   },
   {
     "objectID": "index.html",
@@ -2282,6 +2513,20 @@
     "text": "Ejemplo 1: solución\n---\ntitle: \"Reporte de mediciones de zarigüeyas\"\nauthor: \"Tu nombre aquí\"\nformat:\n  html:\n    theme: pulse\n    code-fold: true\n    code-tools: true\n    code-summary: \"Mostrar el código\"\nhighlight-style: breeze\n---"
   },
   {
+    "objectID": "presentaciones/4-quarto.html#múltiples-formatos-de-salida",
+    "href": "presentaciones/4-quarto.html#múltiples-formatos-de-salida",
+    "title": "Creando documentos con Quarto",
+    "section": "Múltiples formatos de salida",
+    "text": "Múltiples formatos de salida\nUn mismo documento puede generar varios formatos a la vez (por ejemplo Word y PDF), declarándolos en el YAML\n\nquarto render documento.qmd genera todos los formatos\nquarto render documento.qmd --to docx genera solo uno\nEn RStudio, el menú del botón Render permite elegir el formato"
+  },
+  {
+    "objectID": "presentaciones/4-quarto.html#section-3",
+    "href": "presentaciones/4-quarto.html#section-3",
+    "title": "Creando documentos con Quarto",
+    "section": "",
+    "text": "---\ntitle: \"Mi reporte\"\nauthor: \"Tu nombre aquí\"\nformat:\n  html: default\n  docx: default\n  pdf: default\n---"
+  },
+  {
     "objectID": "presentaciones/4-quarto.html#presentaciones",
     "href": "presentaciones/4-quarto.html#presentaciones",
     "title": "Creando documentos con Quarto",
@@ -2307,7 +2552,7 @@
     "href": "presentaciones/4-quarto.html#compartiendo-documentos-quarto",
     "title": "Creando documentos con Quarto",
     "section": "Compartiendo documentos Quarto",
-    "text": "Compartiendo documentos Quarto\nRenderizar y compartir\n\ncomo HTML (embed-resources), PDF, PPT, etc.\n\nPublicar en Posit Connect\nGratis para documentos no muy pesados\nPublicar en GitHub Pages, Netlify, etc."
+    "text": "Compartiendo documentos Quarto\nRenderizar y compartir\n\ncomo HTML (embed-resources), PDF, PPT, etc.\n\n---\ntitle: \"Mi reporte\"\nformat:\n  html:\n    embed-resources: true\n---\nPublicar en Posit Connect\nGratis para documentos no muy pesados\nPublicar en GitHub Pages, Netlify, etc."
   },
   {
     "objectID": "presentaciones/4-quarto.html#lecturas-útiles",
@@ -2315,5 +2560,180 @@
     "title": "Creando documentos con Quarto",
     "section": "Lecturas útiles",
     "text": "Lecturas útiles\n📃 Meghan Hall - Making Slides in Quarto with reveal.js\n📒 Thomas Mock - Getting Started with Quarto"
+  },
+  {
+    "objectID": "presentaciones/5.1-llm_configuracion.html#section",
+    "href": "presentaciones/5.1-llm_configuracion.html#section",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "🤝",
+    "text": "🤝\n\n¿Te gusta/entusiasma/aterra la IA? \n¿Alguna sorpresa grata con alguna herramienta de IA? \n¿Alguna mala experiencia?"
+  },
+  {
+    "objectID": "presentaciones/5.1-llm_configuracion.html#section-1",
+    "href": "presentaciones/5.1-llm_configuracion.html#section-1",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "",
+    "text": "Usaremos modelos alojados en la nube"
+  },
+  {
+    "objectID": "presentaciones/5.1-llm_configuracion.html#llaves-de-api",
+    "href": "presentaciones/5.1-llm_configuracion.html#llaves-de-api",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "LLaves de API",
+    "text": "LLaves de API\nNecesitamos identificarnos con el proveedor del modelo y autenticar nuestra conexión cifrada a sus servidores\nFlujo general\n\nCrear una cuenta con un proveedor(💳 ?)\nGenerar una clave de API\nMantenerla segura pero accesible para nuestras herramientas\nPara algunas suscripciones iniciamos sesión en el navegador en lugar de con llaves de API"
+  },
+  {
+    "objectID": "presentaciones/5.1-llm_configuracion.html#llaves-de-api-1",
+    "href": "presentaciones/5.1-llm_configuracion.html#llaves-de-api-1",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "LLaves de API",
+    "text": "LLaves de API\nEn R\nLa mayoría de los paquetes funcionan con llaves almacenadas en variables de entorno.\nEn asistentes con GUI\nIngresamos nuestras claves de forma interactiva\n\n⚠️ Nunca compartas claves en repositorios públicos, unidades de red, documentos compartidos o grabaciones de pantalla.\n\n\n\n\nH. Wickham  Managing secrets\n\nTed Laderas  A gRadual introduction to web APIs and JSON"
+  },
+  {
+    "objectID": "presentaciones/5.1-llm_configuracion.html#configuración-de-api",
+    "href": "presentaciones/5.1-llm_configuracion.html#configuración-de-api",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Configuración de API",
+    "text": "Configuración de API\nHoy usarermos llaves para un proveedor popular. Se desactiva sola más tarde."
+  },
+  {
+    "objectID": "presentaciones/5.1-llm_configuracion.html#suscripciones-prepago-y-claves-de-api",
+    "href": "presentaciones/5.1-llm_configuracion.html#suscripciones-prepago-y-claves-de-api",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Suscripciones, prepago y claves de API",
+    "text": "Suscripciones, prepago y claves de API\n\nEl precio depende del uso\nLas suscripciones van de ~1 a 250 USD/mes, con límites en el número de peticiones y/o tokens\nExiste la opción de prepago de saldo\nLos tokens son la moneda básica de los LLMs, aproximadamente equivalentes a palabras\n\nComparación de costos 2026 por ATPX"
+  },
+  {
+    "objectID": "presentaciones/5.1-llm_configuracion.html#section-2",
+    "href": "presentaciones/5.1-llm_configuracion.html#section-2",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "",
+    "text": "foto: Augusto Romero"
+  },
+  {
+    "objectID": "presentaciones/5.1-llm_configuracion.html#probabilidades-de-tokens",
+    "href": "presentaciones/5.1-llm_configuracion.html#probabilidades-de-tokens",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Probabilidades de tokens",
+    "text": "Probabilidades de tokens\nAplicación “Token Possibilities” por Garrick Aiden Buie\nApp original de 2025"
+  },
+  {
+    "objectID": "presentaciones/5.1-llm_configuracion.html#configuración---r",
+    "href": "presentaciones/5.1-llm_configuracion.html#configuración---r",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Configuración - R",
+    "text": "Configuración - R\nTemporal: Sys.setenv(OPENAI_API_KEY = \"clave_api\") (entre comillas) o “ANTHROPIC_API_KEY” o “OPENROUTER_API_KEY” o cualquier otro proveedor\nPermanente: usethis::edit_r_environ()\nEn herramientas con interfaz gráfica podríamos también necesitar ingresar una URL base\n(ej. https://openrouter.ai/api/v1)"
+  },
+  {
+    "objectID": "presentaciones/5.1-llm_configuracion.html#archivos-del-taller",
+    "href": "presentaciones/5.1-llm_configuracion.html#archivos-del-taller",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Archivos del taller",
+    "text": "Archivos del taller\nDescargar y extraer el archivo comprimido desde la página de materiales"
+  },
+  {
+    "objectID": "presentaciones/5.3-llm_practica.html#ayuda-con-contexto",
+    "href": "presentaciones/5.3-llm_practica.html#ayuda-con-contexto",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Ayuda con contexto",
+    "text": "Ayuda con contexto\n\nPreguntarle al chatbot en el navegador IDE\nCopiar Aplicar la respuesta y pegarla en R\nCompartir los errores o resultados con el chat\nRepetir (y potencialmente introducir errores)"
+  },
+  {
+    "objectID": "presentaciones/5.3-llm_practica.html#ellmer-y-compañía",
+    "href": "presentaciones/5.3-llm_practica.html#ellmer-y-compañía",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "ellmer y compañía",
+    "text": "ellmer y compañía\n\nConectando R y LLM\n\nRobusto y diseñado específicamente para interacción fácil con LLM directamente desde R\nSoporte para casi todos los proveedores y pensado para uso empresarial/producción\nPermite que los modelos extiendan sus capacidades ejecutando código R"
+  },
+  {
+    "objectID": "presentaciones/5.3-llm_practica.html#ellmer-y-compañía-1",
+    "href": "presentaciones/5.3-llm_practica.html#ellmer-y-compañía-1",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "ellmer y compañía",
+    "text": "ellmer y compañía\n\nConectando R y LLM\n\nLos resultados son inmediatamente utilizables en R\nIntegraciones para ‘ver’ la sesión de R\nEquipo de desarrollo activo"
+  },
+  {
+    "objectID": "presentaciones/5.3-llm_practica.html#demo-de-ellmer",
+    "href": "presentaciones/5.3-llm_practica.html#demo-de-ellmer",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Demo de ellmer",
+    "text": "Demo de ellmer\n\nlibrary(ellmer)\nmy_chat &lt;- chat_openrouter(model = \"~z-ai/glm-flash-latest\")\nmy_chat\nmy_chat$chat(\"qué comen loss conejos\")\n\n Interactúa con el modelo y luego revisa tu objeto de chat nuevamente\n Crea un nuevo objeto de chat con un modelo y prompt de sistema diferentes"
+  },
+  {
+    "objectID": "presentaciones/5.3-llm_practica.html#interactuar-con-el-objeto-de-chat",
+    "href": "presentaciones/5.3-llm_practica.html#interactuar-con-el-objeto-de-chat",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Interactuar con el objeto de chat",
+    "text": "Interactuar con el objeto de chat\nSin salir de R:\n\nEn la consola de R\nlive_console(my_chat)\nEn nuestro navegador web\nlive_browser(my_chat)"
+  },
+  {
+    "objectID": "presentaciones/5.3-llm_practica.html#extensiones-de-positron-vscode",
+    "href": "presentaciones/5.3-llm_practica.html#extensiones-de-positron-vscode",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Extensiones de Positron (vsCode)",
+    "text": "Extensiones de Positron (vsCode)\nIncluidas con el IDE, o instalar desde el ‘mercado’ OpenVSX en el panel de Extensiones\n\n\nPosit Assistant\nKilo Code\n\n\nExtensiones adquiridas/descontinuadas\n\n\nContinue \nWindsurf\n\nRoo Code"
+  },
+  {
+    "objectID": "presentaciones/5.3-llm_practica.html#posit-assistant",
+    "href": "presentaciones/5.3-llm_practica.html#posit-assistant",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Posit Assistant",
+    "text": "Posit Assistant\n\nIncluido en versiones recientes de Positron y RStudio\nAltamente integrado\nPensado para R y Python\nHerramientas integradas para análisis exploratorio de datos y visualización\n👀"
+  },
+  {
+    "objectID": "presentaciones/5.3-llm_practica.html#posit-assistant-1",
+    "href": "presentaciones/5.3-llm_practica.html#posit-assistant-1",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Posit Assistant",
+    "text": "Posit Assistant\n\nDisponible a partir de 02/2026\nPensado principalmente para suscripción Posit AI (desde 20 USD/mes)\nDisponible en RStudio (ojo con la configuración de la barra lateral)"
+  },
+  {
+    "objectID": "presentaciones/5.3-llm_practica.html#kilo-code-kilo.ai",
+    "href": "presentaciones/5.3-llm_practica.html#kilo-code-kilo.ai",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Kilo Code kilo.ai",
+    "text": "Kilo Code kilo.ai\n\nAgente de código de IA de código abierto, disponible como extensión de IDE y CLI\n\nCaracterísticas destacadas:\n\nCódigo abierto (licencia MIT) — sin prompts de caja negra ni contexto oculto\nBYO key o pagar por acceso a diversos modelos similar a OpenRouter"
+  },
+  {
+    "objectID": "presentaciones/5.3-llm_practica.html#interfaces-de-usuario-en-terminal-tuis",
+    "href": "presentaciones/5.3-llm_practica.html#interfaces-de-usuario-en-terminal-tuis",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Interfaces de usuario en terminal (TUIs)",
+    "text": "Interfaces de usuario en terminal (TUIs)\nEn lugar de una extensión de IDE, estas herramientas funcionan como agentes directamente en una ventana de terminal\n\nAgnósticas al lenguaje/editor — funcionan junto a R, Python, Positron, RStudio, etc.\nOperan directamente sobre archivos y carpetas y pueden ejecutar programas en la terminal\nIncluyen planificación, edición en múltiples pasos, ejecución de pruebas"
+  },
+  {
+    "objectID": "presentaciones/5.3-llm_practica.html#por-qué-usar-una-herramienta-tui",
+    "href": "presentaciones/5.3-llm_practica.html#por-qué-usar-una-herramienta-tui",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "¿Por qué usar una herramienta TUI?",
+    "text": "¿Por qué usar una herramienta TUI?\n\nSin dependencia de un IDE — funciona bien con nuestro flujo de trabajo existente de R/RStudio/Positron\nÚtiles para tareas grandes o complicadas, de múltiples archivos o múltiples pasos\nSe pueden programar o ejecutar de forma no interactiva"
+  },
+  {
+    "objectID": "presentaciones/5.3-llm_practica.html#claude-code-claude.comproductclaude-code",
+    "href": "presentaciones/5.3-llm_practica.html#claude-code-claude.comproductclaude-code",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Claude Code claude.com/product/claude-code",
+    "text": "Claude Code claude.com/product/claude-code\n\nAgente CLI oficial de Anthropic\n\nCaracterísticas destacadas:\n\nConciencia del repositorio (lee/busca/edita a través de un repo)\nModo plan vs. auto-aceptar ediciones\nArchivos de memoria de proyecto CLAUDE.md\nSoporte de servidores MCP para herramientas adicionales"
+  },
+  {
+    "objectID": "presentaciones/5.3-llm_practica.html#openai-codex-cli-github.comopenaicodex",
+    "href": "presentaciones/5.3-llm_practica.html#openai-codex-cli-github.comopenaicodex",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "OpenAI Codex CLI github.com/openai/codex",
+    "text": "OpenAI Codex CLI github.com/openai/codex\nCaracterísticas destacadas:\n\nEjecución de comandos en entorno aislado\nModos de aprobación (suggest / auto-edit / full-auto)"
+  },
+  {
+    "objectID": "presentaciones/5.3-llm_practica.html#gemini-cli-github.comgoogle-geminigemini-cli",
+    "href": "presentaciones/5.3-llm_practica.html#gemini-cli-github.comgoogle-geminigemini-cli",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Gemini CLI github.com/google-gemini/gemini-cli",
+    "text": "Gemini CLI github.com/google-gemini/gemini-cli\nCaracterísticas destacadas:\n\nCuenta gratuita con límites de uso muy generosos\nHerramientas integradas para búsqueda web y operaciones de archivos"
+  },
+  {
+    "objectID": "presentaciones/5.3-llm_practica.html#command-code-commandcode.ai",
+    "href": "presentaciones/5.3-llm_practica.html#command-code-commandcode.ai",
+    "title": "Cómo integrar LLM en nuestro flujo de trabajo con R",
+    "section": "Command Code commandcode.ai",
+    "text": "Command Code commandcode.ai\n\nAgente de código en terminal que aprende los estilos de programación de las personas usuarias\n\nCaracterísticas destacadas:\n\nAprende de cada decisión\nFunciona con muchos modelos abiertos y cerrados (DeepSeek, GPT, MiniMax, y más)\nExclusivamente con suscripción"
   }
 ]

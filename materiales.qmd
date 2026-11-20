@@ -57,6 +57,16 @@ Ejemplos para practicar:
 
 ### Viernes
 
+[Cómo integrar LLM en nuestro flujo de trabajo con R - Configuración](presentaciones/5.1-llm_configuracion.qmd){.external target="_blank"}
+
+[Cómo integrar LLM en nuestro flujo de trabajo con R - Contexto general](presentaciones/5.2-llm_contexto.qmd){.external target="_blank"}
+
+[Cómo integrar LLM en nuestro flujo de trabajo con R - Práctica](presentaciones/5.3-llm_practica.qmd){.external target="_blank"}
+
+[Cómo integrar LLM en nuestro flujo de trabajo con R - Extensiones y más](presentaciones/5.4-llm_extensiones.qmd){.external target="_blank"}
+
+[[Archivos para la práctica (archivosDemo.zip)](archivos-ej/archivosDemo.zip)]{style="font-size: 1.3rem; background-color: #3ebdac; padding: 3px; border-radius: 6px;"}
+
 
 <!--[Riqueza de Especies](presentaciones/5-gradiente_riqueza.qmd){.external target="_blank"}-->
 
